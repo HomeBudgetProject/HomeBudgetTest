@@ -1,2 +1,2 @@
 # HomeBudgetTest
-Repository for automatic tests
+Repository for automatic tests!
