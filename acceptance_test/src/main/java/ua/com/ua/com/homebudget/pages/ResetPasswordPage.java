@@ -12,7 +12,7 @@ import net.thucydides.core.pages.WebElementFacade;
  */
 @DefaultUrl("https://homebudget-hb2.rhcloud.com/#/reset")
 
-public class ResetPassword extends PageObject {
+public class ResetPasswordPage extends PageObject {
 
     @FindBy(xpath = "//input[@type='text']")
     private WebElementFacade emailInput;
