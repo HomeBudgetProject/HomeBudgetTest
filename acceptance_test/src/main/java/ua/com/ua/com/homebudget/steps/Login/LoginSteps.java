@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
 
 /**
- * Created by comp on 21.10.2015.
+ * Created by Anohin Artyom on 21.10.2015.
  */
 public class LoginSteps extends ScenarioSteps {
 

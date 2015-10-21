@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 
 /**
- * Created by comp on 21.10.2015.
+ * Created by Anohin Artyom on 21.10.2015.
  */
 public class RegistrationSteps extends ScenarioSteps {
 
