@@ -14,6 +14,9 @@ import net.thucydides.core.pages.WebElementFacade;
 
 public class ResetPasswordPage extends PageObject {
 
+    @FindBy(xpath = "")//add XPATH!!!
+    public WebElementFacade popupNotification;
+
     @FindBy(xpath = "//input[@type='text']")
     private WebElementFacade emailInput;
 

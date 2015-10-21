@@ -8,7 +8,7 @@ import org.jbehave.core.annotations.When;
 import ua.com.ua.com.homebudget.steps.EndUserSteps;
 import ua.com.ua.com.homebudget.steps.Login.LoginSteps;
 import ua.com.ua.com.homebudget.steps.Registrarion.RegistrationSteps;
-
+import ua.com.ua.com.homebudget.steps.ResetPass.ResetPassSteps;
 
 
 /**
@@ -59,5 +59,16 @@ public class DefinitionSteps {
     @Then("show email warning notification '$message' on Register page")
     public void verifyEmailWarningAtRegistration(String message){registrationSteps.verifyEmailWarningAtRegistration(message);}
 
+    @Steps
+    ResetPassSteps resetPassSteps;
+
+    @Given("open reset password page")
+    public void openResetPasswordPage(){resetPassSteps.openResetPasswordPage();}
+
+    @When("enter email '$email' in Resset page and send")
+    public void enterEmailResetPasswordPage(String email){resetPassSteps.enterEmailandSend(email);}
+
+    @Then("show popup notification '$message'")
+    public void verifyPopupMessage(String message){resetPassSteps.verifyMessage(message);}
 
 }
