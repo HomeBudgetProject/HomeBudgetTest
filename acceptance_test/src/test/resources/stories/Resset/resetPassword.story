@@ -1,5 +1,6 @@
-Reset Password
+Meta:Reset Password
 
+Narrative:
 As user I want to reset password
 
 Scenario: As user I want to reset password

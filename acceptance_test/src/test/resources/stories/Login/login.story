@@ -1,5 +1,6 @@
-Login
+Meta:Login
 
+Narrative:
 As user I want to login with my credentials
 
 Scenario: As user I want to login with my credentials

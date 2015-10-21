@@ -66,5 +66,7 @@ public class DefinitionSteps {
     public void openRessetPage(){resetPasswordSteps.openRessetPage();}
     @When("enter email '$email' in Resset page")
     public void enterEmailRessetPage(String email){resetPasswordSteps.resetPassword(email);}
+    @Then("show popup notification '$message'")
+    public void verifyPopupNotification(String message){resetPasswordSteps.verifyNotification(message);}
 
 }
