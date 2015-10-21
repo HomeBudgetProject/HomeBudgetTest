@@ -3,13 +3,10 @@ package ua.com.ua.com.homebudget.steps.Registrarion;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import ua.com.ua.com.homebudget.pages.LoginPage;
 import ua.com.ua.com.homebudget.pages.MainPage;
 import ua.com.ua.com.homebudget.pages.RegistrationPage;
-import ua.com.ua.com.homebudget.pages.ResetPassword;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
 
 /**
