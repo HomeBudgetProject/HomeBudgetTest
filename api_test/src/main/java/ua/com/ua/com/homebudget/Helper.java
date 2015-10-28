@@ -155,24 +155,19 @@ public class Helper {
                 {"","qam,e@me.com", generatePass(10), 400, "Email is not valid"},
                 {"","qam<e@me.com", generatePass(10), 400, "Email is not valid"},
                 {"","qam>e@me.com", generatePass(10), 400, "Email is not valid"},
-                {"","qam|e@me.com", generatePass(10), 400, "Email is not valid"}
-
-                /* not resolve errors
-                {"qame@m\\e.com", generatePass(10), 400, "Email is not valid"},
-                {"qame@m\"e.com", generatePass(10), 400, "Email is not valid"},
-                {"qam\\e@me.com", generatePass(10), 200, null},
-                {"qam\"e@me.com", generatePass(10), 200, null},
-                {"qam}e@me.com", generatePass(10), 400, "Email is not valid"},
-                {"qame@m}e.com", generatePass(10), 400, "Email is not valid"},
-                {"qam/e@me.com", generatePass(10), 200, null},
-                {"qame@m/e.com", generatePass(10), 400, "Email is not valid"},
-                {"qame@m{e.com", generatePass(10), 400, "Email is not valid"},
-                {"qam{e@me.com", generatePass(10), 400, "Email is not valid"}
-                */
+                {"","qam|e@me.com", generatePass(10), 400, "Email is not valid"},
+                {"","qame@m\\e.com", generatePass(10), 400, "Email is not valid"},
+                {"","qame@m\"e.com", generatePass(10), 400, "Email is not valid"},
+                {"","qam\\e@me.com", generatePass(10), 400, "Email is not valid"},
+                {"","qam\"e@me.com", generatePass(10), 400, "Email is not valid"},
+                {"","qam}e@me.com", generatePass(10), 400, "Email is not valid"},
+                {"","qame@m}e.com", generatePass(10), 400, "Email is not valid"},
+//                {"","qam/e@me.com", generatePass(10), 200, null}, // after fix Bugs #31
+                {"","qame@m/e.com", generatePass(10), 400, "Email is not valid"},
+                {"","qame@m{e.com", generatePass(10), 400, "Email is not valid"},
+                {"","qam{e@me.com", generatePass(10), 400, "Email is not valid"}
         };
     }
-
-
 
 
 

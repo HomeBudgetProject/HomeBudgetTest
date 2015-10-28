@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class end2endVerification extends Helper {
     @Test(dataProvider = "dataVerification" )
     public void end2endVerification(String testName, String email, String password, int statuscode, String errorMessage){
-        String auth_key=null;
+        String auth_key="";
 
         Reporter.log("Test: " + testName, true);
         //Register User Section

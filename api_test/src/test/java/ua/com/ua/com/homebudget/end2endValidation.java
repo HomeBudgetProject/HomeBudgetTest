@@ -1,5 +1,6 @@
 package ua.com.ua.com.homebudget;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
@@ -13,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
  */
 public class end2endValidation extends Helper {
     @Test(dataProvider = "dataValidation" )
-    public void end2endVerification(String testName, String email, String password, int statuscode, String errorMessage){
+    public void end2endTest(String testName, String email, String password, int statuscode, String errorMessage){
         String auth_key=null;
 
         Reporter.log("Test: " + testName, true);
@@ -23,7 +24,7 @@ public class end2endValidation extends Helper {
                     .when()
                     .given().log().body()
                     .contentType("application/json")
-                    .body("{ \"email\":\"" + email.trim() + "\", \"password\": \"" + password.trim() + "\"}")
+                    .body("{ \"email\":\"" + StringEscapeUtils.escapeJava(email.trim()) + "\", \"password\": \"" + password.trim() + "\"}")
                     .post("/api/users/register")
                     .then()
                     .log().ifValidationFails();
@@ -35,7 +36,7 @@ public class end2endValidation extends Helper {
                     .when()
                     .given().log().body()
                     .contentType("application/json")
-                    .body("{ \"email\":\"" + email.trim() + "\", \"password\": \"" + password.trim() + "\"}")
+                    .body("{ \"email\":\"" + StringEscapeUtils.escapeJava(email.trim()) + "\", \"password\": \"" + password.trim() + "\"}")
                     .post("/api/users/register")
                     .then()
                     .log().ifValidationFails();
@@ -93,14 +94,14 @@ public class end2endValidation extends Helper {
                     .then()
                     .log().ifValidationFails();
 
-        expect(). //verify that session is destroyed
-                statusCode(200)
-                .when()
-                .given()
-                .cookie("auth_key", auth_key)
-                .get("/api/users/whoami")
-                .then().assertThat().body(equalTo("anonymousUser"))
-                .log().ifValidationFails();
+            expect(). //verify that session is destroyed
+                    statusCode(200)
+                    .when()
+                    .given()
+                    .cookie("auth_key", auth_key)
+                    .get("/api/users/whoami")
+                    .then().assertThat().body(equalTo("anonymousUser"))
+                    .log().ifValidationFails();
 
 
             Reporter.log("Email: '" + email.trim() + "' - successfully deleted", true);
