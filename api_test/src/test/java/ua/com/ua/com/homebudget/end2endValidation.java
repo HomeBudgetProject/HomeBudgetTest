@@ -85,12 +85,21 @@ public class end2endValidation extends Helper {
                     .log().ifValidationFails()
                     .extract().cookie("auth_key");
 
+            int userId = expect(). //get user info
+                    statusCode(200)
+                    .when()
+                    .given()
+                    .cookie("auth_key", auth_key)
+                    .get("/api/users/userInfo")
+                    .then()
+                    .extract().body().path("userId");
+
             expect(). //delete account
                     statusCode(200)
                     .when()
                     .given()
                     .cookie("auth_key", auth_key)
-                    .delete("/api/users/" + URLEncoder.encode(email.trim()))
+                    .delete("/api/users/" + userId)
                     .then()
                     .log().ifValidationFails();
 

@@ -162,7 +162,7 @@ public class Helper {
                 {"","qam\"e@me.com", generatePass(10), 400, "Email is not valid"},
                 {"","qam}e@me.com", generatePass(10), 400, "Email is not valid"},
                 {"","qame@m}e.com", generatePass(10), 400, "Email is not valid"},
-//                {"","qam/e@me.com", generatePass(10), 200, null}, // after fix Bugs #31
+                {"","qam/e@me.com", generatePass(10), 200, null},
                 {"","qame@m/e.com", generatePass(10), 400, "Email is not valid"},
                 {"","qame@m{e.com", generatePass(10), 400, "Email is not valid"},
                 {"","qam{e@me.com", generatePass(10), 400, "Email is not valid"}
