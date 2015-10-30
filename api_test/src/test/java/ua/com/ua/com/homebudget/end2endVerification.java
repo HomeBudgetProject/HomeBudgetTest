@@ -24,7 +24,7 @@ public class end2endVerification extends Helper {
                     .given().log().body()
                     .contentType("application/json")
                     .body("{ \"email\":\"" + email.trim() + "\", \"password\": \"" + password.trim() + "\"}")
-                    .post("/api/users/register")
+                    .post("/users/register")
                     .then()
                     .log().ifValidationFails();
             Reporter.log("Email: '" + email.trim() + "' - successfully registered", true);
@@ -36,7 +36,7 @@ public class end2endVerification extends Helper {
                     .given().log().body()
                     .contentType("application/json")
                     .body("{ \"email\":\"" + email.trim() + "\", \"password\": \"" + password.trim() + "\"}")
-                    .post("/api/users/register")
+                    .post("/users/register")
                     .then()
                     .log().ifValidationFails();
             Reporter.log("Email: '" + email.trim() + "' - not registered with error: " + errorMessage, true);
@@ -44,7 +44,7 @@ public class end2endVerification extends Helper {
         //Login Section
         int scode = expect() //try login and get statuscode
                 .when()
-                .post("/api/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
+                .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
                 .then()
                 .log().ifValidationFails()
                 .extract().statusCode();
@@ -53,7 +53,7 @@ public class end2endVerification extends Helper {
             auth_key = expect() //login process and get auth_key
                     .statusCode(200)
                     .when()
-                    .post("/api/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
+                    .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
                     .then()
                     .log().ifValidationFails()
                     .extract().cookie("auth_key");
@@ -63,14 +63,14 @@ public class end2endVerification extends Helper {
                     .when()
                     .given()
                     .cookie("auth_key", auth_key)
-                    .get("/api/users/whoami")
+                    .get("/users/whoami")
                     .then().assertThat().body(equalTo(email.trim()))
                     .log().ifValidationFails();
             Reporter.log("Email: '" + email.trim() + "' with passrord: '" + password.trim() + "' - successfully logged in", true);
             auth_key = expect() //logout process
                     .given()
                     .cookie("auth_key", auth_key)
-                    .post("/api/logout")
+                    .post("/logout")
                     .then()
                     .log().ifValidationFails()
                     .extract().cookie("auth_key");
@@ -79,7 +79,7 @@ public class end2endVerification extends Helper {
             auth_key = expect() //login process and get auth_key
                     .statusCode(200)
                     .when()
-                    .post("/api/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
+                    .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
                     .then()
                     .log().ifValidationFails()
                     .extract().cookie("auth_key");
@@ -89,7 +89,7 @@ public class end2endVerification extends Helper {
                     .when()
                     .given()
                     .cookie("auth_key", auth_key)
-                    .get("/api/users/userInfo")
+                    .get("/users/userInfo")
                     .then()
                     .extract().body().path("userId");
 
@@ -98,7 +98,7 @@ public class end2endVerification extends Helper {
                     .when()
                     .given()
                     .cookie("auth_key", auth_key)
-                    .delete("/api/users/" + userId)
+                    .delete("/users/" + userId)
                     .then()
                     .log().ifValidationFails();
 
@@ -107,7 +107,7 @@ public class end2endVerification extends Helper {
                 .when()
                 .given()
                 .cookie("auth_key", auth_key)
-                .get("/api/users/whoami")
+                .get("/users/whoami")
                 .then().assertThat().body(equalTo("anonymousUser"))
                 .log().ifValidationFails();
 
@@ -120,7 +120,7 @@ public class end2endVerification extends Helper {
                     .when()
                     .given()
                     .contentType("application/json")
-                    .post("/api/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
+                    .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
                     .then()
                     .log().ifValidationFails();
             Reporter.log("User '" + email.trim() + "' with passrord: '" + password.trim() + "' not logged in",true);

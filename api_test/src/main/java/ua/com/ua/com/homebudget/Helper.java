@@ -29,7 +29,7 @@ public class Helper {
     @BeforeSuite
     public void setUP(){
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.baseURI = "http://homebudget-hb2.rhcloud.com/";
+        RestAssured.baseURI = "http://homebudget-hb2.rhcloud.com/api";
         //RestAssured.port=8080;
         RestAssured.urlEncodingEnabled = false;
 
