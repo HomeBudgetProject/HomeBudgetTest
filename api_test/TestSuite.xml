@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="API test">
     <listeners>
-        <listener class-name="org.uncommons.reportng.HTMLReporter" />
-        <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+
         <listener class-name="org.testng.reporters.XMLReporter" />
     </listeners>
     <test name="End2End Verification">
@@ -10,9 +9,5 @@
             <class name="ua.com.ua.com.homebudget.end2endVerification" />
         </classes>
     </test>
-    <test name="End2End Validation">
-        <classes>
-            <class name="ua.com.ua.com.homebudget.end2endValidation" />
-        </classes>
-    </test>
+
 </suite>
