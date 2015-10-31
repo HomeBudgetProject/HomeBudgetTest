@@ -23,6 +23,8 @@ public class LoginPage extends PageObject {
     private WebElementFacade btnSubmit;
 
     public void enterData(String email, String pass) {
+        emailInput.clear();
+        passInput.clear();
         emailInput.sendKeys(email);
         passInput.sendKeys(pass);
 

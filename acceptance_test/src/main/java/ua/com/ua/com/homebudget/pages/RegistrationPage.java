@@ -50,6 +50,8 @@ public class RegistrationPage extends PageObject {
         //emailInput.type(email);
         //emailInput.click();
         //emailInput.hasFocus();
+        emailInput.clear();
+        passInput.clear();
         emailInput.sendKeys(email);
         passInput.type(pass);
     }
