@@ -11,7 +11,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by artyom on 02.11.15.
+ * Created by Anohin Artyom on 02.11.15.
  */
 public class RegistrationSteps {
     public WebDriver driver;

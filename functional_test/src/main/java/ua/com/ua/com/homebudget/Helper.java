@@ -4,7 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.DataProvider;
 
 /**
- * Created by artyom on 03.11.15.
+ * Created by Anohin Artyom on 03.11.15.
  */
 public class Helper {
     String baseEmail = "qatestemail@testdomain.com";
