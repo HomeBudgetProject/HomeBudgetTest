@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Functional test"  thread-count="4" parallel="tests">
+    <listeners>
+        <listener class-name="org.testng.reporters.XMLReporter" />
+    </listeners>
+    <tests>
+    <test name="Registration Test">
+        <parameters>
+            <parameter name="platform" value="Linux" />
+            <parameter name="browser" value="Firefox" />
+            <parameter name="version" value="40.0.3" />
+            <parameter name="url" value="http://localhost:4444/wd/hub"/>
+        </parameters>
+        <classes>
+            <class name="ua.com.ua.com.homebudget.tests.RegistrationTest" />
+        </classes>
+    </test>
+    </tests>
+</suite>

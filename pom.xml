@@ -13,6 +13,7 @@
   <modules>
     <module>api_test</module>
     <module>acceptance_test</module>
+    <module>functional_test</module>
   </modules>
 
   <properties>
