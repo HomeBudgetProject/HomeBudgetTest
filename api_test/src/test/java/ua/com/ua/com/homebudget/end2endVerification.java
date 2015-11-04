@@ -2,6 +2,8 @@ package ua.com.ua.com.homebudget;
 
 import org.testng.Reporter;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
 import java.net.URLEncoder;
 
@@ -12,6 +14,8 @@ import static org.hamcrest.Matchers.equalTo;
  * Created by Anohin Artyom on 15.10.2015.
  */
 public class end2endVerification extends Helper {
+    @Features("Registration")
+    @Stories("Verification")
     @Test(dataProvider = "dataVerification" )
     public void end2endVerification(String testName, String email, String password, int statuscode, String errorMessage){
         String auth_key="";

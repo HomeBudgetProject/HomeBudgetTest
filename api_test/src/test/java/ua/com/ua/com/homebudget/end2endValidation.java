@@ -3,6 +3,8 @@ package ua.com.ua.com.homebudget;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
 import java.net.URLEncoder;
 
@@ -13,6 +15,8 @@ import static org.hamcrest.Matchers.equalTo;
  * Created by Anohin Artyom on 16.10.2015.
  */
 public class end2endValidation extends Helper {
+    @Features("Registration")
+    @Stories("Validation")
     @Test(dataProvider = "dataValidation" )
     public void end2endTest(String testName, String email, String password, int statuscode, String errorMessage){
         String auth_key=null;

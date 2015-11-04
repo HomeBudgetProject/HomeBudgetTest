@@ -3,20 +3,13 @@ Repository for automatic tests!
 
 
 ### Api - test
+Testing API with [REST-assured](https://github.com/jayway/rest-assured)
 
-#### Get data
-##### Register section
-	?-> data statuscode 200
-		|-> +	register process
-		|-> -	verify error message
-##### Login section
-	|-> try login and get statuscode 
-	?-> statuscode 200
-		|-> +	login process and get auth_key
-				verify whoami
-				logout process
-##### Delete section
-				login process again and get auth_key
-				delete account
-				verify that session is destroyed
-		|-> -	verify error message
+![alt text](https://github.com/jayway/rest-assured/blob/master/rest-assured-logo-green.png "REST-assured")
+
+![alt text](http://allure.qatools.ru/img/allure-logo.png "Allure report") [API report](http://52.19.25.73/ci/job/home-budget-api-test/Allure_Report/)
+
+### Functional tests
+
+
+### Acceptance tests

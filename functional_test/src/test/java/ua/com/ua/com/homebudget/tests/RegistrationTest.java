@@ -20,42 +20,69 @@ public class RegistrationTest extends Helper{
     RemoteWebDriver driver;
     private RegistrationSteps registrationStep;
 
-    @Parameters({"platform", "browser", "version", "url"})
+    @Parameters({"browser","platform", "url"})
     @BeforeTest(alwaysRun = true)
-    public void setup(String platform, String browser, String
-            version, String url) throws MalformedURLException {
-        DesiredCapabilities caps = new DesiredCapabilities();
+    public void setup(String browser,String platform, String url) throws MalformedURLException {
 
-        //Platforms
-        if (platform.equalsIgnoreCase("Windows"))
-            caps.setPlatform(org.openqa.selenium.Platform.WINDOWS);
-        if (platform.equalsIgnoreCase("Linux"))
-            caps.setPlatform(Platform.LINUX);
-        if (platform.equalsIgnoreCase("MAC"))
-            caps.setPlatform(org.openqa.selenium.Platform.MAC);
-        if (platform.equalsIgnoreCase("Andorid"))
-            caps.setPlatform(org.openqa.selenium.Platform.ANDROID);
+        if (browser.equalsIgnoreCase("Chrome")) {
+            DesiredCapabilities caps = DesiredCapabilities.chrome();
+            if (platform.equalsIgnoreCase("Windows 7"))
+                caps.setCapability("platform", "Windows 7");
+            if (platform.equalsIgnoreCase("Windows 8"))
+                caps.setCapability("platform", "Windows 8.1");
+            if (platform.equalsIgnoreCase("Windows 10"))
+                caps.setCapability("platform", "Windows 10");
 
-        //Browsers
-        if (browser.equalsIgnoreCase("Internet Explorer"))
-            caps = DesiredCapabilities.internetExplorer();
+            caps.setCapability("version", "46.0");
+            caps.setCapability("screenResolution", "1024x768");
+            caps.setCapability("name", "Functional test");
+            registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL(url), caps));
+        }
+        if (browser.equalsIgnoreCase("IE")) {
+            DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
+            if (platform.equalsIgnoreCase("Windows 7")) {
+                caps.setCapability("platform", "Windows 7");
+                caps.setCapability("version", "9.0");
+            }
+            if (platform.equalsIgnoreCase("Windows 8")) {
+                caps.setCapability("platform", "Windows 8");
+                caps.setCapability("version", "10.0");
+            }
+            if (platform.equalsIgnoreCase("Windows 10")) {
+                caps.setCapability("platform", "Windows 10");
+                caps.setCapability("version", "11.0");
+            }
+            caps.setCapability("screenResolution", "1024x768");
+            caps.setCapability("name", "Functional test");
+            registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL(url), caps));
+        }
+        if (browser.equalsIgnoreCase("Opera")) {
+            DesiredCapabilities caps = DesiredCapabilities.opera();
+            caps.setCapability("platform", "Windows 7");
+            caps.setCapability("version", "12.12");
+            caps.setCapability("screenResolution", "1024x768");
+            caps.setCapability("name", "Functional test");
+            registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL(url), caps));
+        }
+        if (browser.equalsIgnoreCase("Firefox")) {
+            DesiredCapabilities caps = DesiredCapabilities.firefox();
+            if (platform.equalsIgnoreCase("Windows 7")) {
+                caps.setCapability("platform", "Windows 7");
+                caps.setCapability("version", "41.0");
+            }
+            if (platform.equalsIgnoreCase("Windows 8")) {
+                caps.setCapability("platform", "Windows 8");
+                caps.setCapability("version", "41.0");
+            }
+            if (platform.equalsIgnoreCase("Windows 10")) {
+                caps.setCapability("platform", "Windows 10");
+                caps.setCapability("version", "41.0");
+            }
+            caps.setCapability("screenResolution", "1024x768");
+            caps.setCapability("name", "Functional test");
+            registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL(url), caps));
+        }
 
-        if (browser.equalsIgnoreCase("Firefox"))
-            caps = DesiredCapabilities.firefox();
-
-        if(browser.equalsIgnoreCase("Chrome"))
-            caps = DesiredCapabilities.chrome();
-
-        if (browser.equalsIgnoreCase("iPad"))
-            caps = DesiredCapabilities.ipad();
-
-        if (browser.equalsIgnoreCase("Android"))
-            caps = DesiredCapabilities.android();
-
-        //Version
-        caps.setVersion(version);
-
-        registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL(url), caps));
 
     }
 
