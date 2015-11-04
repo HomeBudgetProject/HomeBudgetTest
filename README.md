@@ -23,5 +23,5 @@ Testing API with [REST-assured](https://github.com/jayway/rest-assured) framewor
 
 ![alt text](http://www.thucydides.info/img/serenity-logo.jpg "Serenity BDD")
 
-![alt text](https://avatars2.githubusercontent.com/u/9455201?v=3&s=200 "Serenity BDD report") [Acceptance tests report](http://52.19.25.73/ci/job/home-budget-acceptance-test/Serenity_Report/)
+[Acceptance tests report](http://52.19.25.73/ci/job/home-budget-acceptance-test/Serenity_Report/)
 
