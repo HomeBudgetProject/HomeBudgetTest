@@ -3,10 +3,8 @@ package ua.com.ua.com.homebudget.tests;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ua.com.ua.com.homebudget.Helper;
@@ -45,6 +43,9 @@ public class RegistrationTest extends Helper{
         if (browser.equalsIgnoreCase("Firefox"))
             caps = DesiredCapabilities.firefox();
 
+        if(browser.equalsIgnoreCase("Chrome"))
+            caps = DesiredCapabilities.chrome();
+
         if (browser.equalsIgnoreCase("iPad"))
             caps = DesiredCapabilities.ipad();
 
@@ -58,16 +59,49 @@ public class RegistrationTest extends Helper{
 
     }
 
+
+
     @Features("Registration")
-    @Stories("Verification")
-    @Test(dataProvider = "dataVerification")
-    public void verificationTest(String testName, String email, String password, int statuscode, String errorMessage){
+    @Stories("Negative Email Verification")
+    @Test(dataProvider = "negativeEmailVerification")
+    public void negativeEmailVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
         registrationStep.openRegistrationPage();
         registrationStep.enterData(email, password);
         registrationStep.sumbitData();
-        registrationStep.verifyMessage(errorMessage);
-        registrationStep.makeScreenshot();
+        registrationStep.verifyEmailWarningMessage(errorMessage);
     }
+
+    /*
+    @Features("Registration")
+    @Stories("Negative Password Verification")
+    @Test(dataProvider = "negativePassVerification")
+    public void negativePassVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
+        registrationStep.openRegistrationPage();
+        registrationStep.enterData(email, password);
+        registrationStep.sumbitData();
+        registrationStep.verifyPassWarningMessage(errorMessage);
+    }
+
+    @Features("Registration")
+    @Stories("Positive Verification")
+    @Test(dataProvider = "positiveVerification")
+    public void positiveVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
+        registrationStep.openRegistrationPage();
+        registrationStep.enterData(email, password);
+        registrationStep.sumbitData();
+        registrationStep.verifyGeneralWarningMessage(errorMessage);
+    }
+     */
+
+
+    @AfterMethod
+    public void setScreenshot(ITestResult result) {
+        //make screenshot if not success
+        if (!result.isSuccess()) {
+            registrationStep.makeScreenshot();
+        }
+    }
+
 
     @AfterClass
     public void afterTest() {

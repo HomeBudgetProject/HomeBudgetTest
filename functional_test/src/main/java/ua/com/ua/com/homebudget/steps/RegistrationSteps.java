@@ -10,6 +10,8 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.thoughtworks.selenium.SeleneseTestNgHelper.assertEquals;
+
 /**
  * Created by Anohin Artyom on 02.11.15.
  */
@@ -21,18 +23,23 @@ public class RegistrationSteps {
     }
     private SoftAssert softAssert = new SoftAssert();
 
-    By registrationForm = By.xpath("/html/body/div/div/form/div[1]/div");
-    By emailInput = By.xpath("//input[@name='email']");
-    By passInput = By.xpath("//input[@name='password']");
+    By registrationForm = By.xpath("//*[@name='registerform']");
+    By emailInput = By.xpath(".//*[@name='email']");
+    By passInput = By.xpath("//*[@name='password']");
+
     By registerButton = By.xpath("//input[@value='Register']");
-    By generalMessage = By.xpath("/html/body/div/div/form/div[1]/div/div[3]");
+    By generalWarning = By.xpath("//*[@ng-if='ctrl.error']");
+    By passWarning = By.xpath("/html/body/div/div/form/div[1]/div/ng-messages[2]/div");
+    By emailWarning =By.xpath("/html/body/div/div/form/div[1]/div/ng-messages[1]/div");
+
+
 
     @Step
     public void openRegistrationPage() {
         driver.get("https://homebudget-hb2.rhcloud.com/#/register");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(registrationForm).isDisplayed();
+        driver.navigate().refresh();
     }
 
     @Step("Enter data \"{0}\" - \"{1}\"")
@@ -54,16 +61,21 @@ public class RegistrationSteps {
 
     @Step
     public void sumbitData() {
-        //assertTrue("Registration button is disabled", driver.findElement(registerButton).isEnabled());
+        softAssert.assertFalse(driver.findElement(registerButton).isEnabled(), "Registration button is disabled");
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(registerButton).click();
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
     }
     @Step
-    public void verifyMessage(String message) {
-        //Assert.assertTrue("Warning message does not match", driver.findElement(generalMessage).getText().equals(message));
-//        assertEquals(driver.findElement(generalMessage).getText(), message);
-
-
-        softAssert.assertEquals(driver.findElement(generalMessage).getText(), message);
+    public void verifyEmailWarningMessage(String message) {
+        //softAssert.assertEquals(driver.findElement(emailWarning).getText(), message);
+        assertEquals(driver.findElement(emailWarning).getText(), message);
+    }
+    @Step
+    public void verifyPassWarningMessage(String message) {
+        softAssert.assertEquals(driver.findElement(passWarning).getText(), message);
+    }
+    @Step
+    public void verifyGeneralWarningMessage(String message) {
+        softAssert.assertEquals(driver.findElement(generalWarning).getText(), message);
     }
 }

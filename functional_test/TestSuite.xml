@@ -7,8 +7,8 @@
     <test name="Registration Test">
         <parameters>
             <parameter name="platform" value="Linux" />
-            <parameter name="browser" value="Firefox" />
-            <parameter name="version" value="40.0.3" />
+            <parameter name="browser" value="Chrome" />
+            <parameter name="version" value="44.0.2403.89" />
             <parameter name="url" value="http://localhost:4444/wd/hub"/>
         </parameters>
         <classes>
