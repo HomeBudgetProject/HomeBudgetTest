@@ -26,7 +26,6 @@ public class RegistrationSteps {
     By registrationForm = By.xpath("//*[@name='registerform']");
     By emailInput = By.xpath(".//*[@name='email']");
     By passInput = By.xpath("//*[@name='password']");
-
     By registerButton = By.xpath("//input[@value='Register']");
     By generalWarning = By.xpath("//*[@ng-if='ctrl.error']");
     By passWarning = By.xpath("/html/body/div/div/form/div[1]/div/ng-messages[2]/div");
@@ -61,21 +60,21 @@ public class RegistrationSteps {
 
     @Step
     public void sumbitData() {
-        softAssert.assertFalse(driver.findElement(registerButton).isEnabled(), "Registration button is disabled");
+        //softAssert.assertFalse(driver.findElement(registerButton).isEnabled(), "Registration button is disabled");
+        //assertTrue("Register button is disabled",!driver.findElement(registerButton).isEnabled());
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(registerButton).click();
     }
     @Step
     public void verifyEmailWarningMessage(String message) {
-        //softAssert.assertEquals(driver.findElement(emailWarning).getText(), message);
         assertEquals(driver.findElement(emailWarning).getText(), message);
     }
     @Step
     public void verifyPassWarningMessage(String message) {
-        softAssert.assertEquals(driver.findElement(passWarning).getText(), message);
+        assertEquals(driver.findElement(passWarning).getText(), message);
     }
     @Step
     public void verifyGeneralWarningMessage(String message) {
-        softAssert.assertEquals(driver.findElement(generalWarning).getText(), message);
+        assertEquals(driver.findElement(generalWarning).getText(), message);
     }
 }

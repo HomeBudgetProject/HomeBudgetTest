@@ -12,7 +12,7 @@
             <parameter name="url" value="http://localhost:4444/wd/hub"/>
         </parameters>
         <classes>
-            <class name="ua.com.ua.com.homebudget.tests.RegistrationTest" />
+            <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
         </classes>
     </test>
     </tests>
