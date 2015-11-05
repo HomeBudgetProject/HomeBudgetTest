@@ -31,21 +31,23 @@ public class Helper {
     public Object[][] negativeEmailVerification() {
         return new Object[][]{
                 {"Empty Email","", generatePass(10), 400, "The email must be between 6 and 60 characters"},
-                {"One Space Email", " ", generatePass(10), 400, "The email must be between 6 and 60 characters"},
-                {"Two Space Email", "  ", generatePass(10), 400, "The email must be between 6 and 60 characters"},
-                {"Five Letters Email", "m@e.u", generatePass(10), 400, "The email must be between 6 and 60 characters"},
-                {"Five Letters + Space Email", "m@e.u ", generatePass(10), 400, "The email must be between 6 and 60 characters"},
-                {"61 Letters Email", generateEmail(31, 30), generatePass(10), 400, "The email must be between 6 and 60 characters"}
+                {"One Space Email", " ", generatePass(10), 400, "Введите Email"},
+                {"Two Space Email", "  ", generatePass(10), 400, "Введите Email"},
+                {"Five Letters Email", "m@e.u", generatePass(10), 400, "Email должен содержать от 6 до 60 символов"},
+                {"Five Letters + Space Email", "m@e.u ", generatePass(10), 400, "Email должен содержать от 6 до 60 символов"},
+                {"61 Letters Email", generateEmail(31, 30), generatePass(10), 400, "Email должен содержать от 6 до 60 символов"}
         };
     }
     @DataProvider(name = "negativePassVerification")
     public Object[][] negativePassVerification() {
         return new Object[][]{
-                {"Empty Pass", generateEmail(10, 10), "", 400, "The password must be between 6 and 100 characters"},
-                {"One SpacePass", generateEmail(10, 10), " ", 400, "The password must be between 6 and 100 characters"},
-                {"Two Space Pass", generateEmail(10, 10), "  ", 400, "The password must be between 6 and 100 characters"},
-                {"5 Letters Pass", generateEmail(10, 10), generatePass(5), 400, "The password must be between 6 and 100 characters"},
-                {"5 + Space Letters Pass", generateEmail(10, 10), generatePass(5) + " ", 400, "The password must be between 6 and 100 characters"}
+                {"Empty Pass", generateEmail(10, 10), "", 400, "Введите пароль"},
+                {"One SpacePass", generateEmail(10, 10), " ", 400, "Введены некорректные данные"},
+                {"Two Space Pass", generateEmail(10, 10), "  ", 400, "Введены некорректные данные"},
+                {"5 Letters Pass", generateEmail(10, 10), generatePass(5), 400, "Пароль должен содержать от 6 до 100 символов"},
+                {"5 + Space Letters Pass", generateEmail(10, 10), generatePass(5) + " ", 400, "Введены некорректные данные"},
+                {"100 + Space Letters Pass", generateEmail(10, 10), generatePass(100) + " ", 200, "Введены некорректные данные"},
+                {"Space + 100 Letters Pass", generateEmail(10, 10), " " + generatePass(100), 200, "Введены некорректные данные"}
         };
     }
     @DataProvider(name = "positiveVerification")
@@ -62,8 +64,6 @@ public class Helper {
                 {"Numeric Local Email", "123456@test.com", generatePass(10), 200, "Вы успешно зарегистрированы"},
                 {"Numeric Domain Email", "qatest@123456.com", generatePass(10), 200, "Вы успешно зарегистрированы"},
                 {"100 Letters Pass", generateEmail(10, 10), generatePass(100), 200, "Вы успешно зарегистрированы"},
-                {"100 + Space Letters Pass", generateEmail(10, 10), generatePass(100) + " ", 200, "Вы успешно зарегистрированы"},
-                {"Space + 100 Letters Pass", generateEmail(10, 10), " " + generatePass(100), 200, "Вы успешно зарегистрированы"},
                 {"6 Letters Pass", generateEmail(10, 10), generatePass(6), 200, "Вы успешно зарегистрированы"},
                 {"RFC Email", "qaother.email.with-dash+symbol@example.com", generatePass(6), 200, "Вы успешно зарегистрированы"},
                 {"RFC2 Email", "qaMiles.O'Brian@example.com", generatePass(6), 200, "Вы успешно зарегистрированы"}

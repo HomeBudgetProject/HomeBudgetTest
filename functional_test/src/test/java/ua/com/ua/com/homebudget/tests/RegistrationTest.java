@@ -96,9 +96,10 @@ public class RegistrationTest extends Helper{
         registrationStep.enterData(email, password);
         registrationStep.sumbitData();
         registrationStep.verifyEmailWarningMessage(errorMessage);
+        registrationStep.cleanAfterTest(email, password);
     }
 
-    /*
+
     @Features("Registration")
     @Stories("Negative Password Verification")
     @Test(dataProvider = "negativePassVerification")
@@ -107,6 +108,7 @@ public class RegistrationTest extends Helper{
         registrationStep.enterData(email, password);
         registrationStep.sumbitData();
         registrationStep.verifyPassWarningMessage(errorMessage);
+        registrationStep.cleanAfterTest(email, password);
     }
 
     @Features("Registration")
@@ -117,8 +119,9 @@ public class RegistrationTest extends Helper{
         registrationStep.enterData(email, password);
         registrationStep.sumbitData();
         registrationStep.verifyGeneralWarningMessage(errorMessage);
+        registrationStep.cleanAfterTest(email, password);
     }
-     */
+
 
 
     @AfterMethod
