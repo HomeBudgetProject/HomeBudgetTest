@@ -19,7 +19,7 @@ public class LoginPage extends PageObject {
     @FindBy(xpath = "//input[@type='password']")
     private WebElementFacade passInput;
 
-    @FindBy(xpath = "//button[@type='button']")
+    @FindBy(xpath = "//input[@value='Log In']")
     private WebElementFacade btnSubmit;
 
     public void enterData(String email, String pass) {

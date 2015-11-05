@@ -68,7 +68,7 @@ public class end2endValidation extends Helper {
                     .when()
                     .given()
                     .cookie("auth_key", auth_key)
-                    .get("api/users/whoami")
+                    .get("/users/whoami")
                     .then().assertThat().body(equalTo(email.trim()))
                     .log().ifValidationFails();
             Reporter.log("Email: '" + email.trim() + "' with passrord: '" + password.trim() + "' - successfully logged in", true);

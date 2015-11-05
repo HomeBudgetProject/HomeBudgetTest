@@ -1,14 +1,18 @@
 package ua.com.ua.com.homebudget.jbehave;
 
+import com.jayway.restassured.RestAssured;
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 
 import ua.com.ua.com.homebudget.steps.EndUserSteps;
 import ua.com.ua.com.homebudget.steps.Login.LoginSteps;
 import ua.com.ua.com.homebudget.steps.Registrarion.RegistrationSteps;
 import ua.com.ua.com.homebudget.steps.ResetPass.ResetPassSteps;
+
+import java.net.URLEncoder;
+
+import static com.jayway.restassured.RestAssured.expect;
+import static org.hamcrest.Matchers.equalTo;
 
 
 /**
@@ -16,6 +20,115 @@ import ua.com.ua.com.homebudget.steps.ResetPass.ResetPassSteps;
  */
 
 public class DefinitionSteps {
+
+    @BeforeStories
+    public void setupREST(){
+        //Setup RESR for manage data in system
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        RestAssured.baseURI = "http://homebudget-hb2.rhcloud.com/api";
+        RestAssured.urlEncodingEnabled = false;
+        String email = "qathucydides@testdomain.com";
+        String pass = "Qwerty123456";
+        //check whether there is a test account on the system. if there is - remove
+        int scode = expect() //try login and get statuscode
+                .when()
+                .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + pass.trim())
+                .then()
+                .log().ifValidationFails()
+                .extract().statusCode();
+        if (scode==200) {
+            //Delete Section
+            String auth_key = expect() //login process and get auth_key
+                    .statusCode(200)
+                    .when()
+                    .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + pass.trim())
+                    .then()
+                    .log().ifValidationFails()
+                    .extract().cookie("auth_key");
+
+            int userId = expect(). //get user info
+                    statusCode(200)
+                    .when()
+                    .given()
+                    .cookie("auth_key", auth_key)
+                    .get("/users/userInfo")
+                    .then()
+                    .extract().body().path("userId");
+
+            expect(). //delete account
+                    statusCode(200)
+                    .when()
+                    .given()
+                    .cookie("auth_key", auth_key)
+                    .delete("/users/" + userId)
+                    .then()
+                    .log().ifValidationFails();
+
+            expect(). //verify that session is destroyed
+                    statusCode(200)
+                    .when()
+                    .given()
+                    .cookie("auth_key", auth_key)
+                    .get("/users/whoami")
+                    .then().assertThat().body(equalTo("anonymousUser"))
+                    .log().ifValidationFails();
+        }
+    }
+
+    @AfterStories
+    public void cleanUP(){
+            //Setup RESR for manage data in system
+            RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+            RestAssured.baseURI = "http://homebudget-hb2.rhcloud.com/api";
+            RestAssured.urlEncodingEnabled = false;
+            String email = "qathucydides@testdomain.com";
+            String pass = "Qwerty123456";
+            //check whether there is a test account on the system. if there is - remove
+            int scode = expect() //try login and get statuscode
+                    .when()
+                    .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + pass.trim())
+                    .then()
+                    .log().ifValidationFails()
+                    .extract().statusCode();
+            if (scode==200) {
+                //Delete Section
+                String auth_key = expect() //login process and get auth_key
+                        .statusCode(200)
+                        .when()
+                        .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + pass.trim())
+                        .then()
+                        .log().ifValidationFails()
+                        .extract().cookie("auth_key");
+
+                int userId = expect(). //get user info
+                        statusCode(200)
+                        .when()
+                        .given()
+                        .cookie("auth_key", auth_key)
+                        .get("/users/userInfo")
+                        .then()
+                        .extract().body().path("userId");
+
+                expect(). //delete account
+                        statusCode(200)
+                        .when()
+                        .given()
+                        .cookie("auth_key", auth_key)
+                        .delete("/users/" + userId)
+                        .then()
+                        .log().ifValidationFails();
+
+                expect(). //verify that session is destroyed
+                        statusCode(200)
+                        .when()
+                        .given()
+                        .cookie("auth_key", auth_key)
+                        .get("/users/whoami")
+                        .then().assertThat().body(equalTo("anonymousUser"))
+                        .log().ifValidationFails();
+            }
+
+    }
 
     @Steps
     EndUserSteps endUser;

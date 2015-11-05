@@ -7,7 +7,11 @@ import ua.com.ua.com.homebudget.pages.MainPage;
 import ua.com.ua.com.homebudget.pages.RegistrationPage;
 import ua.com.ua.com.homebudget.pages.ResetPasswordPage;
 
+import java.net.URLEncoder;
+
+import static com.jayway.restassured.RestAssured.expect;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created by Anohin Artyom on 10.09.2015.
@@ -24,4 +28,6 @@ public class EndUserSteps extends ScenarioSteps {
     public void isOnMainPage(){
         mainPage.isOnThisPage();
     }
+
+
 }

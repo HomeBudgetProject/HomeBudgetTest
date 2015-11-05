@@ -19,7 +19,7 @@ import java.net.URL;
 public class LoginTest {
     RemoteWebDriver driver;
     private LoginSteps loginSteps;
-
+    @Parameters({"browser","platform", "url"})
     @BeforeTest(alwaysRun = true)
     public void setup() throws MalformedURLException {
 
