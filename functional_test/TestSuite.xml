@@ -11,7 +11,7 @@
             <parameter name="url" value="http://homebudget:be9e23fd-30c5-48c6-8ca6-c0f3f0a7f259@ondemand.saucelabs.com:80/wd/hub"/>
         </parameters>
         <classes>
-            <class name="ua.com.ua.com.homebudget.tests.RegistrationTest" />
+            <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
         </classes>
     </test>
 
