@@ -27,7 +27,7 @@ public class LoginTest {
         desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
         desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
         desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-
+        desiredCapabilities.setCapability("name", "Functional test - Login"); //name job in saucelab
             loginSteps = new LoginSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
 
     }
