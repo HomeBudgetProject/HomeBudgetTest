@@ -27,7 +27,7 @@ public class DefinitionSteps {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.baseURI = "http://homebudget-hb2.rhcloud.com/api";
         RestAssured.urlEncodingEnabled = false;
-        String email = "qathucydides@testdomain.com";
+        String email = "qathucydides @testdomain.com";
         String pass = "Qwerty123456";
         //check whether there is a test account on the system. if there is - remove
         int scode = expect() //try login and get statuscode
@@ -81,7 +81,7 @@ public class DefinitionSteps {
             RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
             RestAssured.baseURI = "http://homebudget-hb2.rhcloud.com/api";
             RestAssured.urlEncodingEnabled = false;
-            String email = "qathucydides@testdomain.com";
+            String email = "qathucydides @testdomain.com";
             String pass = "Qwerty123456";
             //check whether there is a test account on the system. if there is - remove
             int scode = expect() //try login and get statuscode
