@@ -4,6 +4,10 @@ import com.jayway.restassured.RestAssured;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import ua.com.ua.com.homebudget.steps.EndUserSteps;
 import ua.com.ua.com.homebudget.steps.Login.LoginSteps;
 import ua.com.ua.com.homebudget.steps.Registrarion.RegistrationSteps;
@@ -21,8 +25,10 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class DefinitionSteps {
 
+
     @BeforeStories
     public void setupREST(){
+
         //Setup RESR for manage data in system
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.baseURI = "http://homebudget-hb2.rhcloud.com/api";

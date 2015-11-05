@@ -14,7 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by artyom on 04.11.15.
+ * Created by Anohin Artyom on 04.11.15.
  */
 public class LoginTest {
     RemoteWebDriver driver;
