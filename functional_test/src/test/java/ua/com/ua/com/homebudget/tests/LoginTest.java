@@ -19,9 +19,10 @@ import java.net.URL;
 public class LoginTest {
     RemoteWebDriver driver;
     private LoginSteps loginSteps;
-    @Parameters({"browser","platform", "url"})
+
     @BeforeTest(alwaysRun = true)
-    public void setup(String browser,String platform, String url) throws MalformedURLException {
+    public void setup() throws MalformedURLException {
+
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
