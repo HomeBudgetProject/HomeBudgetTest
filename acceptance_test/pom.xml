@@ -105,7 +105,7 @@
                     <argLine>-Xmx512m</argLine>
                     <systemPropertyVariables>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
-                        <webdriver.driver>chrome</webdriver.driver>
+                        <webdriver.driver>IE</webdriver.driver>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
