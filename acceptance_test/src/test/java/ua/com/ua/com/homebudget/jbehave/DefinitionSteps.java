@@ -1,9 +1,12 @@
 package ua.com.ua.com.homebudget.jbehave;
 
 import com.jayway.restassured.RestAssured;
+import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import ua.com.ua.com.homebudget.steps.EndUserSteps;
 import ua.com.ua.com.homebudget.steps.Login.LoginSteps;
 import ua.com.ua.com.homebudget.steps.Registrarion.RegistrationSteps;
@@ -127,6 +130,15 @@ public class DefinitionSteps {
                         .then().assertThat().body(equalTo("anonymousUser"))
                         .log().ifValidationFails();
             }
+
+    }
+
+
+    public void addCapabilitiesTo(DesiredCapabilities desiredCapabilities) {
+        desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+        desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+        desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+        desiredCapabilities.setCapability("name", "Acceptance test - Registration"); //name job in saucelab
 
     }
 
