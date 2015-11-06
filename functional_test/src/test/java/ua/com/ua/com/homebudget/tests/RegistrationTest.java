@@ -20,20 +20,28 @@ import java.net.URL;
  */
 public class RegistrationTest extends Helper{
     RemoteWebDriver driver;
-    public RegistrationSteps registrationStep;
+    private RegistrationSteps registrationStep;
 
+    @Parameters({"browser","platform", "url"})
+    @BeforeTest(alwaysRun = true)
+    public void setup() throws MalformedURLException {
 
-    @BeforeMethod
-    public void setUp() throws Exception {
-        registrationStep = new RegistrationSteps(setup());
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+        desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+        desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+        desiredCapabilities.setCapability("name", "Functional test - Registration"); //name job in saucelab
+        registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
+
     }
+
+
+
 
     @Features("Registration")
     @Stories("Negative Email Verification")
     @Test(dataProvider = "negativeEmailVerification")
-    public void negativeEmailVerificationTest(String testName, String email, String password, int statuscode, String errorMessage) throws MalformedURLException {
-        //registrationStep = new RegistrationSteps(setup());
-
+    public void negativeEmailVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
         registrationStep.openRegistrationPage();
         registrationStep.enterData(email, password);
         registrationStep.sumbitData();
