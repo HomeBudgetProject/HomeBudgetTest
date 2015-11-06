@@ -8,6 +8,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
+import ua.com.ua.com.homebudget.Helper;
 import ua.com.ua.com.homebudget.steps.LoginSteps;
 
 import java.net.MalformedURLException;
@@ -16,9 +17,10 @@ import java.net.URL;
 /**
  * Created by Anohin Artyom on 04.11.15.
  */
-public class LoginTest {
+public class LoginTest extends Helper{
     RemoteWebDriver driver;
     private LoginSteps loginSteps;
+
     @Parameters({"browser","platform", "url"})
     @BeforeTest(alwaysRun = true)
     public void setup() throws MalformedURLException {

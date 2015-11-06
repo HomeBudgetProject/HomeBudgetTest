@@ -1,7 +1,13 @@
 package ua.com.ua.com.homebudget;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.annotations.DataProvider;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by Anohin Artyom on 03.11.15.
@@ -148,4 +154,20 @@ public class Helper {
         };
     }
 
+
+    @Parameters({"browser","platform", "url"})
+    @BeforeClass(alwaysRun = true)
+    public RemoteWebDriver setup() throws MalformedURLException {
+
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+        desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+        desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+        desiredCapabilities.setCapability("name", "Functional test - Registration"); //name job in saucelab
+        // registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
+        RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
+        System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
+
+        return remoteDriver;
+    }
 }

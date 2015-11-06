@@ -20,30 +20,20 @@ import java.net.URL;
  */
 public class RegistrationTest extends Helper{
     RemoteWebDriver driver;
-    private RegistrationSteps registrationStep;
+    public RegistrationSteps registrationStep;
 
-    @Parameters({"browser","platform", "url"})
-    @BeforeTest(alwaysRun = true)
-    public void setup() throws MalformedURLException {
 
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-        desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
-        desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-        desiredCapabilities.setCapability("name", "Functional test - Registration"); //name job in saucelab
-       // registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
-        RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
-        System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
-        registrationStep = new RegistrationSteps(remoteDriver);
+    @BeforeMethod
+    public void setUp() throws Exception {
+        registrationStep = new RegistrationSteps(setup());
     }
-
-
-
 
     @Features("Registration")
     @Stories("Negative Email Verification")
     @Test(dataProvider = "negativeEmailVerification")
-    public void negativeEmailVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
+    public void negativeEmailVerificationTest(String testName, String email, String password, int statuscode, String errorMessage) throws MalformedURLException {
+        //registrationStep = new RegistrationSteps(setup());
+
         registrationStep.openRegistrationPage();
         registrationStep.enterData(email, password);
         registrationStep.sumbitData();
