@@ -10,11 +10,6 @@
                 <class name="ua.com.ua.com.homebudget.tests.RegistrationTest" />
             </classes>
         </test>
-        <test name="Login Test">
 
-            <classes>
-                <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
-            </classes>
-        </test>
     </tests>
 </suite>

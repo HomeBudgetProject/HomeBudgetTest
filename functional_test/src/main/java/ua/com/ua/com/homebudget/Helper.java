@@ -1,10 +1,14 @@
 package ua.com.ua.com.homebudget;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
+import ua.com.ua.com.homebudget.steps.RegistrationSteps;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -153,7 +157,6 @@ public class Helper {
                 {"","qam/e@me.com", generatePass(10), 200, null}
         };
     }
-
 
 
 }

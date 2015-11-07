@@ -1,6 +1,9 @@
 package ua.com.ua.com.homebudget.tests;
 
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -19,24 +22,44 @@ import java.net.URL;
  * Created by Anohin Artyom on 02.11.15.
  */
 public class RegistrationTest extends Helper{
-    RemoteWebDriver driver;
+
+
     private RegistrationSteps registrationStep;
 
+
+    public static WebDriver driver;
     @Parameters({"browser","platform", "url"})
     @BeforeTest(alwaysRun = true)
     public void setup() throws MalformedURLException {
+        if (System.getProperty("instance").equals("saucelabs")){
+            System.out.println("Instance = global");
+            DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+            desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+            desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+            desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+            desiredCapabilities.setCapability("name", "Functional test - Registration"); //name job in saucelab
+            // registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
+            RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
+            System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
+            registrationStep = new RegistrationSteps(remoteDriver);
 
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-        desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
-        desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-        desiredCapabilities.setCapability("name", "Functional test - Registration"); //name job in saucelab
-        // registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
-        RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
-        System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
-        registrationStep = new RegistrationSteps(remoteDriver);
+        }
+        else{
+            if (System.getProperty("instance.browser").equalsIgnoreCase("firefox")){
+                System.out.println("Instance = Firefox");
+                driver = new FirefoxDriver();
+            }
+            if (System.getProperty("instance.browser").equalsIgnoreCase("chrome")){
+                System.out.println("Instance = Chrome");
+                System.setProperty("webdriver.chrome.driver",
+                        "C:/chromedriver.exe");
+                driver = new ChromeDriver();
+
+            }
+            else System.out.println("Bad instance");
+        }
+
     }
-
 
 
 
@@ -51,7 +74,7 @@ public class RegistrationTest extends Helper{
         registrationStep.cleanAfterTest(email, password);
     }
 
-
+/*
     @Features("Registration")
     @Stories("Negative Password Verification")
     @Test(dataProvider = "negativePassVerification")
@@ -74,7 +97,7 @@ public class RegistrationTest extends Helper{
         registrationStep.cleanAfterTest(email, password);
     }
 
-
+*/
 
     @AfterMethod
     public void setScreenshot(ITestResult result) {

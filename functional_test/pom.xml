@@ -35,7 +35,18 @@
                         <suiteXmlFile>TestSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <forkCount>1</forkCount>
-
+                    <systemProperties>
+                        <property>
+                            <name>instance</name>
+                            <value>local</value>
+                            <value>${instance}</value>
+                        </property>
+                        <property>
+                            <name>instance.browser</name>
+                            <value>firefox</value>
+                            <value>${instanceBrowser}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
                 <dependencies>
                     <dependency>
