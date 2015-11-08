@@ -24,9 +24,9 @@ public class LoginTest {
     public void setup(String platform, String browser, String browserVersion) throws MalformedURLException {
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setBrowserName("chrome");
-        desiredCapabilities.setVersion("46");
-        desiredCapabilities.setCapability(CapabilityType.PLATFORM, "Windows 10");
+        desiredCapabilities.setBrowserName(browser);
+        desiredCapabilities.setVersion(browserVersion);
+        desiredCapabilities.setCapability(CapabilityType.PLATFORM, platform);
         desiredCapabilities.setCapability("name", "Functional test - Login"); //name job in saucelab
         loginSteps = new LoginSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
 
