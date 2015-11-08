@@ -5,9 +5,13 @@
     </listeners>
         <tests>
             <test name="Registration Test">
-
+                <parameters>
+                    <parameter name="browser" value="Firefox" />
+                    <parameter name="browserVersion" value="41" />
+                    <parameter name="platform" value="Windows 10" />
+                </parameters>
             <classes>
-                <class name="ua.com.ua.com.homebudget.tests.RegistrationTest" />
+                <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
             </classes>
         </test>
 
