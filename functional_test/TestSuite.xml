@@ -4,17 +4,27 @@
         <listener class-name="org.testng.reporters.XMLReporter" />
     </listeners>
         <tests>
-
-            <test name="OS X El Capitan Safari 9 ">
+            <test name="Windows 10 Chrome 46">
                 <parameters>
-                    <parameter name="browser" value="safari" />
-                    <parameter name="browserVersion" value="9" />
-                    <parameter name="platform" value="Mac 10.11" />
+                    <parameter name="browser" value="chrome" />
+                    <parameter name="browserVersion" value="46" />
+                    <parameter name="platform" value="Windows 10" />
                 </parameters>
                 <classes>
                     <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
                 </classes>
             </test>
+            <test name="Windows 7 Chrome 46">
+                <parameters>
+                    <parameter name="browser" value="chrome" />
+                    <parameter name="browserVersion" value="46" />
+                    <parameter name="platform" value="Windows 2008" />
+                </parameters>
+                <classes>
+                    <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
+                </classes>
+            </test>
+
 
     </tests>
 </suite>
