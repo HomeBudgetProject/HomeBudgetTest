@@ -19,14 +19,15 @@ import java.net.URL;
 public class LoginTest {
     RemoteWebDriver driver;
     private LoginSteps loginSteps;
-    @Parameters({"browser","platform", "browserVersion"})
+    @Parameters({"platform", "browser", "browserVersion"})
     @BeforeTest(alwaysRun = true)
     public void setup(String platform, String browser, String browserVersion) throws MalformedURLException {
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability(CapabilityType.PLATFORM, platform);
         desiredCapabilities.setBrowserName(browser);
         desiredCapabilities.setVersion(browserVersion);
-        desiredCapabilities.setCapability(CapabilityType.PLATFORM, platform);
+
         desiredCapabilities.setCapability("name", "Functional test - Login"); //name job in saucelab
         loginSteps = new LoginSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
 
