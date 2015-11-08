@@ -32,6 +32,16 @@ public class LoginTest extends Helper{
         loginSteps.sumbitData();
     }
 
+    @Features("Login")
+    @Stories("Positive Login")
+    @Parameters({"browser","platform"})
+    @Test
+    public void positiveLogin2(String browser,String platform){
+        loginSteps.openLoginPage();
+        loginSteps.enterData("qqqqqqqq","cccc");
+        loginSteps.sumbitData();
+    }
+
 
     @AfterMethod
     public void setScreenshot(ITestResult result) {
