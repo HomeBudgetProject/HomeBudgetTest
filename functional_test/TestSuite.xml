@@ -14,7 +14,16 @@
                     <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
                 </classes>
             </test>
-
+            <test name="Windows 7 Firefox 41">
+                <parameters>
+                    <parameter name="platform" value="Windows 2008" />
+                    <parameter name="browser" value="firefox" />
+                    <parameter name="browserVersion" value="41" />
+                </parameters>
+                <classes>
+                    <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
+                </classes>
+            </test>
 
 
     </tests>

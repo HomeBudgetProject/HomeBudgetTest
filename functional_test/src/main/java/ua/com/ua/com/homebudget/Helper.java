@@ -8,6 +8,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
+import ua.com.ua.com.homebudget.steps.LoginSteps;
 import ua.com.ua.com.homebudget.steps.RegistrationSteps;
 
 import java.net.MalformedURLException;
@@ -19,6 +20,25 @@ import java.net.URL;
 public class Helper {
     String baseEmail = "qatestemail@testdomain.com";
     String basePass= "Qwerty123456";
+
+    protected LoginSteps loginSteps;
+
+
+    @Parameters({"platform", "browser", "browserVersion"})
+    @BeforeTest(alwaysRun = true)
+    public void setup(String platform, String browser, String browserVersion) throws MalformedURLException {
+
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability(CapabilityType.PLATFORM, platform);
+        desiredCapabilities.setBrowserName(browser);
+        desiredCapabilities.setVersion(browserVersion);
+
+        desiredCapabilities.setCapability("name", "Functional test - Login"); //name job in saucelab
+        loginSteps = new LoginSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
+
+    }
+
+
 
     public String generateEmail(int local_part, int domain_part, int subdomain){
         String email = "qa" + RandomStringUtils.randomAlphanumeric(local_part - 3) + "@" + RandomStringUtils.randomAlphanumeric(domain_part) + "." + RandomStringUtils.randomAlphanumeric(subdomain) + ".com";

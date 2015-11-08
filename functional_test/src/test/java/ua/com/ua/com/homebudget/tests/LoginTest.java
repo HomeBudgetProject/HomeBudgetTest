@@ -8,6 +8,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
+import ua.com.ua.com.homebudget.Helper;
 import ua.com.ua.com.homebudget.steps.LoginSteps;
 
 import java.net.MalformedURLException;
@@ -16,22 +17,9 @@ import java.net.URL;
 /**
  * Created by artyom on 04.11.15.
  */
-public class LoginTest {
-    RemoteWebDriver driver;
-    private LoginSteps loginSteps;
-    @Parameters({"platform", "browser", "browserVersion"})
-    @BeforeTest(alwaysRun = true)
-    public void setup(String platform, String browser, String browserVersion) throws MalformedURLException {
+public class LoginTest extends Helper{
 
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setCapability(CapabilityType.PLATFORM, platform);
-        desiredCapabilities.setBrowserName(browser);
-        desiredCapabilities.setVersion(browserVersion);
 
-        desiredCapabilities.setCapability("name", "Functional test - Login"); //name job in saucelab
-        loginSteps = new LoginSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
-
-    }
 
 
     @Features("Login")
