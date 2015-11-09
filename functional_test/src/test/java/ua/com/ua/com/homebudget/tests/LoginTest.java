@@ -9,7 +9,7 @@ import ru.yandex.qatools.allure.annotations.Stories;
 import ua.com.ua.com.homebudget.Helper;
 
 /**
- * Created by artyom on 04.11.15.
+ * Created by Anohin Artyom on 04.11.15.
  */
 public class LoginTest extends Helper{
 

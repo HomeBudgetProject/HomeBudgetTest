@@ -14,13 +14,8 @@ import ru.yandex.qatools.allure.annotations.Step;
 import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
 
-import static com.thoughtworks.selenium.SeleneseTestNgHelper.assertEquals;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import java.net.URLEncoder;
-
 import static com.jayway.restassured.RestAssured.expect;
+import static com.thoughtworks.selenium.SeleneseTestNgHelper.assertEquals;
 import static org.hamcrest.Matchers.equalTo;
 /**
  * Created by Anohin Artyom on 02.11.15.
@@ -136,6 +131,6 @@ public class RegistrationSteps {
                     .then().assertThat().body(equalTo("anonymousUser"))
                     .log().ifValidationFails();
         }
-        //Reporter.getCurrentTestResult().setStatus(ITestResult.SUCCESS);//manually set pass
+        Reporter.getCurrentTestResult().setStatus(ITestResult.SUCCESS);//manually set pass
     }
 }

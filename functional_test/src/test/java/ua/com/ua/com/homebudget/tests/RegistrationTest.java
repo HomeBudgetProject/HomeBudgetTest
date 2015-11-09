@@ -14,24 +14,6 @@ import ua.com.ua.com.homebudget.Helper;
 public class RegistrationTest extends Helper{
 
 
-    @Features("Registration")
-    @Stories("reg 01")
-    @Test
-    public void reg01(){
-        registrationSteps.openRegistrationPage();
-        registrationSteps.enterData("aa","bb");
-        registrationSteps.sumbitData();
-    }
-
-    @Features("Registration")
-    @Stories("reg 02")
-    @Test
-    public void reg02(){
-        registrationSteps.openRegistrationPage();
-        registrationSteps.enterData("qqqqqqqq","cccc");
-        registrationSteps.sumbitData();
-    }
-
 
     @AfterMethod
     public void setScreenshot(ITestResult result) {
@@ -48,7 +30,16 @@ public class RegistrationTest extends Helper{
         registrationSteps.quit();
     }
 
-
+    @Features("Registration")
+    @Stories("Negative Email Verification")
+    @Test(dataProvider = "negativeEmailVerification")
+    public void negativePassVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
+        registrationSteps.openRegistrationPage();
+        registrationSteps.enterData(email, password);
+        registrationSteps.sumbitData();
+        registrationSteps.verifyPassWarningMessage(errorMessage);
+        registrationSteps.cleanAfterTest(email, password);
+    }
 /*
     @Features("Registration")
     @Stories("Negative Password Verification")
