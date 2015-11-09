@@ -26,7 +26,10 @@ import java.net.URL;
 public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
     String baseEmail = "qatestemail@testdomain.com";
     String basePass= "Qwerty123456";
+
     public WebDriver driver;
+
+
     protected LoginSteps loginSteps;
     public String username = System.getenv("SAUCE_USERNAME");
     public String accesskey = System.getenv("SAUCE_ACCESS_KEY");
@@ -56,6 +59,7 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
             if (System.getProperty("instanceBrowser").equalsIgnoreCase("firefox")){
                 System.out.println("Instance = Firefox");
                 driver = new FirefoxDriver();
+
             }
             if (System.getProperty("instanceBrowser").equalsIgnoreCase("chrome")){
                 System.out.println("Instance = Chrome");
@@ -65,6 +69,7 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
 
             }
             else System.out.println("Bad instance");
+            loginSteps = new LoginSteps(driver);
         }
     }
 
