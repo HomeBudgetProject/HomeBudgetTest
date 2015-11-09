@@ -26,8 +26,8 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
     String basePass= "Qwerty123456";
 
     protected LoginSteps loginSteps;
-    public String username = "homebudget";
-    public String accesskey = "be9e23fd-30c5-48c6-8ca6-c0f3f0a7f259";
+    public String username = System.getenv("SAUCE_USERNAME");
+    public String accesskey = System.getenv("SAUCE_ACCESS_KEY");
 
     protected ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication(username, accesskey);
@@ -36,18 +36,13 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
     public void setup() throws MalformedURLException {
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-/*
-        desiredCapabilities.setCapability(CapabilityType.PLATFORM, platform);
-        desiredCapabilities.setBrowserName(browser);
-        desiredCapabilities.setVersion(browserVersion);
-  */
-        desiredCapabilities.setBrowserName("firefox");
-        desiredCapabilities.setVersion("41");
-        desiredCapabilities.setCapability(CapabilityType.PLATFORM, "Windows 10");
+
+        desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+        desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+        desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 
 
-
-        desiredCapabilities.setCapability("name", "Functional test"); //name job in saucelab
+        desiredCapabilities.setCapability("name", "HomeBudget test"); //name job in saucelab
         RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://"+username+":"+accesskey+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
         System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
         loginSteps = new LoginSteps(remoteDriver);
