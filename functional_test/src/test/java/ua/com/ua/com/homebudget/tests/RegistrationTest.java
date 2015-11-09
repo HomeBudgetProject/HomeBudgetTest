@@ -14,19 +14,19 @@ import ua.com.ua.com.homebudget.Helper;
 public class RegistrationTest extends Helper{
 
 
-    @Features("Login")
-    @Stories("Positive Login")
+    @Features("Registration")
+    @Stories("reg 01")
     @Test
-    public void positiveLogin(){
+    public void reg01(){
         registrationSteps.openRegistrationPage();
         registrationSteps.enterData("aa","bb");
         registrationSteps.sumbitData();
     }
 
-    @Features("Login")
-    @Stories("Positive Login")
+    @Features("Registration")
+    @Stories("reg 02")
     @Test
-    public void positiveLogin2(){
+    public void reg02(){
         registrationSteps.openRegistrationPage();
         registrationSteps.enterData("qqqqqqqq","cccc");
         registrationSteps.sumbitData();

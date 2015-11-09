@@ -4,15 +4,16 @@
         <listener class-name="org.testng.reporters.XMLReporter" />
     </listeners>
         <tests>
-            <test name="Windows 10 Chrome 46">
-
+            <test name="Login tests">
                 <classes>
                     <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
+                </classes>
+            </test>
+            <test name="Registration tests">
+                <classes>
                     <class name="ua.com.ua.com.homebudget.tests.RegistrationTest" />
                 </classes>
             </test>
-
-
 
     </tests>
 </suite>

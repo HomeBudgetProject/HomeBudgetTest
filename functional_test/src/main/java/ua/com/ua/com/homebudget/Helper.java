@@ -62,18 +62,16 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
         }
         else{
             if (System.getProperty("instanceBrowser").equalsIgnoreCase("firefox")){
-                System.out.println("Instance = Firefox");
                 driver = new FirefoxDriver();
 
             }
-            if (System.getProperty("instanceBrowser").equalsIgnoreCase("chrome")){
-                System.out.println("Instance = Chrome");
-                System.setProperty("webdriver.chrome.driver",
-                        "C:/chromedriver.exe");
+            else if (System.getProperty("instanceBrowser").equalsIgnoreCase("chrome")){
+
                 driver = new ChromeDriver();
 
             }
             else System.out.println("Bad instance");
+            System.out.println("Instance - local. Browser - " + System.getProperty("instanceBrowser"));
             loginSteps = new LoginSteps(driver);
             registrationSteps = new RegistrationSteps(driver);
         }
