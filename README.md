@@ -25,11 +25,13 @@ The default browser is Firefox. To change the browser, use the command
 > -DinstanceBrowser=
 
 Available browsers:
+
 ⋅⋅* Firefox
 ⋅⋅* Chrome
 
 Additionally set the path of the drive (eg Firefox)
--Dwebdriver.chrome.driver=
+
+> -Dwebdriver.chrome.driver=
 
 
 Additionally, see [here](https://code.google.com/p/selenium/wiki/UsingWebDriver)
