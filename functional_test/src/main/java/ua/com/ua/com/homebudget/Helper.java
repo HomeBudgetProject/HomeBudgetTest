@@ -1,15 +1,18 @@
 package ua.com.ua.com.homebudget;
 
+import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
+import com.saucelabs.testng.SauceOnDemandTestListener;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import ua.com.ua.com.homebudget.steps.LoginSteps;
-import ua.com.ua.com.homebudget.steps.RegistrationSteps;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,26 +20,57 @@ import java.net.URL;
 /**
  * Created by Anohin Artyom on 03.11.15.
  */
-public class Helper {
+@Listeners({SauceOnDemandTestListener.class})
+public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
     String baseEmail = "qatestemail@testdomain.com";
     String basePass= "Qwerty123456";
 
     protected LoginSteps loginSteps;
+    public String username = "homebudget";
+    public String accesskey = "be9e23fd-30c5-48c6-8ca6-c0f3f0a7f259";
 
-
-    @Parameters({"platform", "browser", "browserVersion"})
+    protected ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
+    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication(username, accesskey);
+    private ThreadLocal<String> sessionId = new ThreadLocal<String>();
     @BeforeTest(alwaysRun = true)
-    public void setup(String platform, String browser, String browserVersion) throws MalformedURLException {
+    public void setup() throws MalformedURLException {
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+/*
         desiredCapabilities.setCapability(CapabilityType.PLATFORM, platform);
         desiredCapabilities.setBrowserName(browser);
         desiredCapabilities.setVersion(browserVersion);
+  */
+        desiredCapabilities.setBrowserName("firefox");
+        desiredCapabilities.setVersion("41");
+        desiredCapabilities.setCapability(CapabilityType.PLATFORM, "Windows 10");
 
-        desiredCapabilities.setCapability("name", "Functional test - Login"); //name job in saucelab
-        loginSteps = new LoginSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
+
+
+        desiredCapabilities.setCapability("name", "Functional test"); //name job in saucelab
+        RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://"+username+":"+accesskey+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
+        System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
+        loginSteps = new LoginSteps(remoteDriver);
+
+        String id = ((RemoteWebDriver) remoteDriver).getSessionId().toString();
+        sessionId.set(id);
 
     }
+
+
+    @Override
+    public SauceOnDemandAuthentication getAuthentication() {
+        return authentication;
+    }
+
+    public String getSessionId() {
+        return sessionId.get();
+    }
+
+
+
+
+
 
 
 
