@@ -17,28 +17,28 @@ Testing API with [REST-assured](https://github.com/jayway/rest-assured) framewor
 
 For local run execute
 
-> --projects functional_test clean test site
+` --projects functional_test clean test site`
 
 
 The default browser is Firefox. To change the browser, use the command
 
-> -DinstanceBrowser=
+` -DinstanceBrowser=`
 
 Available browsers:
 
-⋅⋅* Firefox
-⋅⋅* Chrome
++ Firefox
++ Chrome
 
 Additionally set the path of the drive (eg Firefox)
 
-> -Dwebdriver.chrome.driver=
+` -Dwebdriver.chrome.driver=`
 
 
 Additionally, see [here](https://code.google.com/p/selenium/wiki/UsingWebDriver)
 
 
 Local reports can be viewed using Jetty
-> jetty:run
+` jetty:run`
 
 ![alt text](http://allure.qatools.ru/img/allure-logo.png "Allure report") [Functional tests report](http://52.19.25.73/ci/job/homebudget-functional-test/Allure_Report/)
 
