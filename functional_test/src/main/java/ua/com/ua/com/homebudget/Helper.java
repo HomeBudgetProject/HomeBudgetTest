@@ -6,6 +6,8 @@ import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import com.saucelabs.testng.SauceOnDemandTestListener;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -24,7 +26,7 @@ import java.net.URL;
 public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
     String baseEmail = "qatestemail@testdomain.com";
     String basePass= "Qwerty123456";
-
+    public WebDriver driver;
     protected LoginSteps loginSteps;
     public String username = System.getenv("SAUCE_USERNAME");
     public String accesskey = System.getenv("SAUCE_ACCESS_KEY");
@@ -34,22 +36,36 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
     private ThreadLocal<String> sessionId = new ThreadLocal<String>();
     @BeforeTest(alwaysRun = true)
     public void setup() throws MalformedURLException {
+        if (System.getProperty("instance").equals("saucelabs")) {
+            DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-
-        desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-        desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-        desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
+            desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+            desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+            desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 
 
-        desiredCapabilities.setCapability("name", "HomeBudget test"); //name job in saucelab
-        RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://"+username+":"+accesskey+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
-        System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
-        loginSteps = new LoginSteps(remoteDriver);
+            desiredCapabilities.setCapability("name", "HomeBudget test"); //name job in saucelab
+            RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://" + username + ":" + accesskey + "@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
+            System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
+            loginSteps = new LoginSteps(remoteDriver);
 
-        String id = ((RemoteWebDriver) remoteDriver).getSessionId().toString();
-        sessionId.set(id);
+            String id = ((RemoteWebDriver) remoteDriver).getSessionId().toString();
+            sessionId.set(id);
+        }
+        else{
+            if (System.getProperty("instanceBrowser").equalsIgnoreCase("firefox")){
+                System.out.println("Instance = Firefox");
+                driver = new FirefoxDriver();
+            }
+            if (System.getProperty("instanceBrowser").equalsIgnoreCase("chrome")){
+                System.out.println("Instance = Chrome");
+                System.setProperty("webdriver.chrome.driver",
+                        "C:/chromedriver.exe");
+                driver = new ChromeDriver();
 
+            }
+            else System.out.println("Bad instance");
+        }
     }
 
 

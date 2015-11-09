@@ -40,7 +40,7 @@
                             <value>${instance}</value>
                         </property>
                         <property>
-                            <name>instance.browser</name>
+                            <name>instanceBrowser</name>
                             <value>firefox</value>
                             <value>${instanceBrowser}</value>
                         </property>
