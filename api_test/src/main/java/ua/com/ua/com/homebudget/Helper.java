@@ -38,7 +38,7 @@ public class Helper {
                 .given()
                 .contentType("application/json")
                 .body("{ \"email\":\"" + baseEmail + "\", \"password\": \"" + basePass + "\"}")
-                .post("/api/users/register")
+                .post("/users/register")
                 .then()
                 .log().ifValidationFails();
     }
@@ -67,7 +67,7 @@ public class Helper {
                 {"Exist Email",baseEmail, basePass ,400,"This email is already taken"},
                 {"Empty Email","", generatePass(10), 400, "The email must be between 6 and 60 characters"},
                 {"One Space Email", " ", generatePass(10), 400, "The email must be between 6 and 60 characters"},
-                {"Two Space Email", "  ", generatePass(10), 400, "The email must be between 6 and 60 characters"},
+/*                {"Two Space Email", "  ", generatePass(10), 400, "The email must be between 6 and 60 characters"},
                 {"Six Letters Email", "m@e.ua", generatePass(10), 200, null},
                 {"Five Letters Email", "m@e.u", generatePass(10), 400, "The email must be between 6 and 60 characters"},
                 {"Five Letters + Space Email", "m@e.u ", generatePass(10), 400, "The email must be between 6 and 60 characters"},
@@ -92,7 +92,7 @@ public class Helper {
                 {"5 + Space Letters Pass", generateEmail(10, 10), generatePass(5) + " ", 400, "The password must be between 6 and 100 characters"},
                 //{"Only Characters Pass", generateEmail(10, 10), "!@#$%^&*()_-+={}[]:',.<>/`", 200, null}, // some bad request
                 {"RFC Email", "qaother.email.with-dash+symbol@example.com", generatePass(6), 200, null},
-                {"RFC2 Email", "qaMiles.O'Brian@example.com", generatePass(6), 200, null}
+                {"RFC2 Email", "qaMiles.O'Brian@example.com", generatePass(6), 200, null}*/
         };
     }
 
