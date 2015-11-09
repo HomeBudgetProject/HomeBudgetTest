@@ -25,10 +25,13 @@ public class RegistrationTest extends Helper{
 */
 
     @AfterMethod
-    public void onTestFailure(ITestResult result) {
-        registrationSteps.makeScreenshot();
+    public void takeScreenShotOnFailure(ITestResult testResult)
+    {
+        if (testResult.getStatus() == ITestResult.FAILURE)
+        {
+            registrationSteps.makeScreenshot();
+        }
     }
-
 
     @AfterClass
     public void afterTest() {
