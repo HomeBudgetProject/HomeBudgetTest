@@ -95,20 +95,17 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
 
 
     public String generateEmail(int local_part, int domain_part, int subdomain){
-        String email = "qa" + RandomStringUtils.randomAlphanumeric(local_part - 3) + "@" + RandomStringUtils.randomAlphanumeric(domain_part) + "." + RandomStringUtils.randomAlphanumeric(subdomain) + ".com";
-        return email;
+        return "qa" + RandomStringUtils.randomAlphanumeric(local_part - 3) + "@" + RandomStringUtils.randomAlphanumeric(domain_part) + "." + RandomStringUtils.randomAlphanumeric(subdomain) + ".com";
 
     }
 
     public String generateEmail(int local_part, int domain_part){
-        String email = "qa"+ RandomStringUtils.randomAlphanumeric(local_part - 3) + "@"+RandomStringUtils.randomAlphanumeric(domain_part-4)+".com";
-        return email;
+        return "qa"+ RandomStringUtils.randomAlphanumeric(local_part - 3) + "@"+RandomStringUtils.randomAlphanumeric(domain_part-4)+".com";
     }
 
     public String generatePass(int length){
-        String pass =  RandomStringUtils.randomAlphanumeric(length);
         //String pass =  RandomStringUtils.randomAscii(length);
-        return pass;
+        return RandomStringUtils.randomAlphanumeric(length);
     }
 
     @DataProvider(name = "negativeEmailVerification")
