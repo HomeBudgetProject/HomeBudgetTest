@@ -1,7 +1,7 @@
 # HomeBudgetTest
 Repository for automatic tests!
 
-### To successfully create a report, use the latest version of [Maven](https://maven.apache.org/download.cgi)
+### To successfully create [Allure](http://allure.qatools.ru/) report, use the latest version of [Maven](https://maven.apache.org/download.cgi)
 
 ![alt text](https://wiki.jenkins-ci.org/download/attachments/327683/JENKINS?version=1&modificationDate=1302750804000 "Jenkins")
 ## Api - test
