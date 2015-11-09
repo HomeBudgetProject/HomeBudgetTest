@@ -8,7 +8,7 @@
 
                 <classes>
                     <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
-
+                    <class name="ua.com.ua.com.homebudget.tests.RegistrationTest" />
                 </classes>
             </test>
 

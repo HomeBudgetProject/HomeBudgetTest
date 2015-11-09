@@ -1,22 +1,12 @@
 package ua.com.ua.com.homebudget.tests;
 
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ua.com.ua.com.homebudget.Helper;
-import ua.com.ua.com.homebudget.steps.LoginSteps;
-import ua.com.ua.com.homebudget.steps.RegistrationSteps;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Created by Anohin Artyom on 02.11.15.
@@ -24,55 +14,40 @@ import java.net.URL;
 public class RegistrationTest extends Helper{
 
 
-    private RegistrationSteps registrationStep;
+    @Features("Login")
+    @Stories("Positive Login")
+    @Test
+    public void positiveLogin(){
+        registrationSteps.openRegistrationPage();
+        registrationSteps.enterData("aa","bb");
+        registrationSteps.sumbitData();
+    }
 
-
-    public static WebDriver driver;
-    @Parameters({"browser","platform", "url"})
-    @BeforeTest(alwaysRun = true)
-    public void setup() throws MalformedURLException {
-        if (System.getProperty("instance").equals("saucelabs")){
-            System.out.println("Instance = global");
-            DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-            desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-            desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
-            desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-            desiredCapabilities.setCapability("name", "Functional test - Registration"); //name job in saucelab
-            // registrationStep = new RegistrationSteps(new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities));
-            RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://"+System.getenv("SAUCE_USERNAME")+":"+System.getenv("SAUCE_ACCESS_KEY")+"@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
-            System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
-            registrationStep = new RegistrationSteps(remoteDriver);
-
-        }
-        else{
-            if (System.getProperty("instance.browser").equalsIgnoreCase("firefox")){
-                System.out.println("Instance = Firefox");
-                driver = new FirefoxDriver();
-            }
-            if (System.getProperty("instance.browser").equalsIgnoreCase("chrome")){
-                System.out.println("Instance = Chrome");
-                System.setProperty("webdriver.chrome.driver",
-                        "C:/chromedriver.exe");
-                driver = new ChromeDriver();
-
-            }
-            else System.out.println("Bad instance");
-        }
-
+    @Features("Login")
+    @Stories("Positive Login")
+    @Test
+    public void positiveLogin2(){
+        registrationSteps.openRegistrationPage();
+        registrationSteps.enterData("qqqqqqqq","cccc");
+        registrationSteps.sumbitData();
     }
 
 
-
-    @Features("Registration")
-    @Stories("Negative Email Verification")
-    @Test(dataProvider = "negativeEmailVerification")
-    public void negativeEmailVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
-        registrationStep.openRegistrationPage();
-        registrationStep.enterData(email, password);
-        registrationStep.sumbitData();
-        registrationStep.verifyEmailWarningMessage(errorMessage);
-        registrationStep.cleanAfterTest(email, password);
+    @AfterMethod
+    public void setScreenshot(ITestResult result) {
+        //make screenshot if not success
+        if (!result.isSuccess()) {
+            registrationSteps.makeScreenshot();
+        }
     }
+
+
+    @AfterClass
+    public void afterTest() {
+        //Close the browser
+        registrationSteps.quit();
+    }
+
 
 /*
     @Features("Registration")
@@ -99,18 +74,5 @@ public class RegistrationTest extends Helper{
 
 */
 
-    @AfterMethod
-    public void setScreenshot(ITestResult result) {
-        //make screenshot if not success
-        if (!result.isSuccess()) {
-            registrationStep.makeScreenshot();
-        }
-    }
 
-
-    @AfterClass
-    public void afterTest() {
-        //Close the browser
-        registrationStep.quit();
-    }
 }

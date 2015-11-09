@@ -15,6 +15,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import ua.com.ua.com.homebudget.steps.LoginSteps;
+import ua.com.ua.com.homebudget.steps.RegistrationSteps;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,29 +30,33 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
 
     public WebDriver driver;
 
-
     protected LoginSteps loginSteps;
+    protected RegistrationSteps registrationSteps;
+
     public String username = System.getenv("SAUCE_USERNAME");
     public String accesskey = System.getenv("SAUCE_ACCESS_KEY");
 
     protected ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication(username, accesskey);
     private ThreadLocal<String> sessionId = new ThreadLocal<String>();
+
     @BeforeTest(alwaysRun = true)
     public void setup() throws MalformedURLException {
         if (System.getProperty("instance").equals("saucelabs")) {
+            //setup capabilities
             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-
             desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
             desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
             desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 
 
             desiredCapabilities.setCapability("name", "HomeBudget test"); //name job in saucelab
+            //create WebDriver
             RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://" + username + ":" + accesskey + "@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
+            //print Job
             System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
             loginSteps = new LoginSteps(remoteDriver);
-
+            registrationSteps = new RegistrationSteps(remoteDriver);
             String id = ((RemoteWebDriver) remoteDriver).getSessionId().toString();
             sessionId.set(id);
         }
@@ -70,6 +75,7 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
             }
             else System.out.println("Bad instance");
             loginSteps = new LoginSteps(driver);
+            registrationSteps = new RegistrationSteps(driver);
         }
     }
 
