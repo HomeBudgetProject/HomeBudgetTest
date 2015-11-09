@@ -1,6 +1,8 @@
 # HomeBudgetTest
 Repository for automatic tests!
 
+### To successfully create a report, use the latest version of [Maven](https://maven.apache.org/download.cgi)
+
 ![alt text](https://wiki.jenkins-ci.org/download/attachments/327683/JENKINS?version=1&modificationDate=1302750804000 "Jenkins")
 ## Api - test
 Testing API with [REST-assured](https://github.com/jayway/rest-assured) framework.
@@ -12,7 +14,6 @@ Testing API with [REST-assured](https://github.com/jayway/rest-assured) framewor
 ## Functional tests
 
 ![alt text](http://www.seleniumhq.org/images/selenium-logo.png "Selenium")
-
 ![alt text](https://docs.saucelabs.com/images/sauce-labs.bbed5298.png "sauce-labs")
 
 For local run execute
@@ -38,6 +39,7 @@ Additionally, see [here](https://code.google.com/p/selenium/wiki/UsingWebDriver)
 
 
 Local reports can be viewed using Jetty
+
 ` jetty:run`
 
 ![alt text](http://allure.qatools.ru/img/allure-logo.png "Allure report") [Functional tests report](http://52.19.25.73/ci/job/homebudget-functional-test/Allure_Report/)
