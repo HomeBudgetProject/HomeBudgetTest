@@ -14,13 +14,19 @@ import ua.com.ua.com.homebudget.Helper;
 public class RegistrationTest extends Helper{
 
 
-
+/*
     @AfterMethod
     public void setScreenshot(ITestResult result) {
         //make screenshot if not success
-        if (!result.isSuccess()) {
+        if (result.isSuccess()) {
             registrationSteps.makeScreenshot();
         }
+    }
+*/
+
+    @AfterMethod
+    public void onTestFailure(ITestResult result) {
+        registrationSteps.makeScreenshot();
     }
 
 

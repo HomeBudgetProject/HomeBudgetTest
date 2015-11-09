@@ -34,15 +34,24 @@ public class LoginTest extends Helper{
         loginSteps.sumbitData();
     }
 
-
+/*
     @AfterMethod
     public void setScreenshot(ITestResult result) {
         //make screenshot if not success
-        if (!result.isSuccess()) {
+        if (result.isSuccess()) {
             loginSteps.makeScreenshot();
         }
     }
+*/
 
+    @AfterMethod
+    public void takeScreenShotOnFailure(ITestResult testResult)
+    {
+        if (testResult.getStatus() == ITestResult.FAILURE)
+        {
+            loginSteps.makeScreenshot();
+        }
+    }
 
     @AfterClass
     public void afterTest() {
