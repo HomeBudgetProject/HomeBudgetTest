@@ -16,12 +16,12 @@ Testing API with [REST-assured](https://github.com/jayway/rest-assured) framewor
 ![alt text](http://www.seleniumhq.org/images/selenium-logo.png "Selenium")
 ![alt text](https://docs.saucelabs.com/images/sauce-labs.bbed5298.png "sauce-labs")
 
-For local run execute
+For local run execute:
 
 ` --projects functional_test clean test site`
 
 
-The default browser is Firefox. To change the browser, use the command
+The default browser is Firefox. To change the browser, use the command:
 
 ` -DinstanceBrowser=`
 
@@ -29,8 +29,9 @@ Available browsers:
 
 + Firefox
 + Chrome
++ Internet Explorer
 
-Additionally set the path of the drive (eg Firefox)
+Additionally set the path of the drive:
 
 ` -Dwebdriver.chrome.driver=`
 
@@ -38,7 +39,7 @@ Additionally set the path of the drive (eg Firefox)
 Additionally, see [here](https://code.google.com/p/selenium/wiki/UsingWebDriver)
 
 
-Local reports can be viewed using Jetty
+Local reports can be viewed using Jetty:
 
 ` jetty:run`
 

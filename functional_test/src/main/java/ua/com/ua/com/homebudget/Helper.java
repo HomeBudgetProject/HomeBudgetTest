@@ -8,6 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -52,27 +53,29 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
             desiredCapabilities.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
             desiredCapabilities.setBrowserName(System.getenv("SELENIUM_BROWSER"));
             desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
-
-
             desiredCapabilities.setCapability("name", classNameVar.getClassName()); //name job in saucelab
             //create WebDriver
             RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://" + username + ":" + accesskey + "@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
             //print Job
             System.out.println(String.format("SauceOnDemandSessionID=%s job-name=%s", remoteDriver.getSessionId(), desiredCapabilities.getCapability("name")));
+
+            //init WebDeiver insteps
             loginSteps = new LoginSteps(remoteDriver);
             registrationSteps = new RegistrationSteps(remoteDriver);
+
+
             String id = ((RemoteWebDriver) remoteDriver).getSessionId().toString();
             sessionId.set(id);
         }
         else{
             if (System.getProperty("instanceBrowser").equalsIgnoreCase("firefox")){
                 driver = new FirefoxDriver();
-
             }
             else if (System.getProperty("instanceBrowser").equalsIgnoreCase("chrome")){
-
                 driver = new ChromeDriver();
-
+            }
+            else if (System.getProperty("instanceBrowser").equalsIgnoreCase("ie")){
+                driver = new InternetExplorerDriver();
             }
             else System.out.println("Bad instance");
             System.out.println("Instance - local. Browser - " + System.getProperty("instanceBrowser"));
