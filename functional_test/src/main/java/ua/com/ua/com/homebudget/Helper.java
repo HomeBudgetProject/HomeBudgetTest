@@ -29,7 +29,7 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
     String basePass= "Qwerty123456";
     //class name init
     StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-    StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
+    StackTraceElement classNameVar = stacktrace[2];
     //
 
     public WebDriver driver;
@@ -54,7 +54,7 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
             desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 
 
-            desiredCapabilities.setCapability("name", e.getClassName()); //name job in saucelab
+            desiredCapabilities.setCapability("name", classNameVar.getClassName()); //name job in saucelab
             //create WebDriver
             RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://" + username + ":" + accesskey + "@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
             //print Job
