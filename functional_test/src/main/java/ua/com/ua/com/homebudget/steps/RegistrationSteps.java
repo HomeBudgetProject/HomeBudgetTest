@@ -1,12 +1,9 @@
 package ua.com.ua.com.homebudget.steps;
 
 import com.jayway.restassured.RestAssured;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.testng.ITestResult;
-import org.testng.Reporter;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -66,7 +63,10 @@ public class RegistrationSteps {
     @Step
     public void sumbitData() {
         //assertFalse("Register button is disabled", driver.findElement(registerButton).isEnabled());
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("someid")));
+
         driver.findElement(registerButton).click();
     }
     @Step
@@ -131,6 +131,6 @@ public class RegistrationSteps {
                     .then().assertThat().body(equalTo("anonymousUser"))
                     .log().ifValidationFails();
         }
-        Reporter.getCurrentTestResult().setStatus(ITestResult.SUCCESS);//manually set pass
+        //Reporter.getCurrentTestResult().setStatus(ITestResult.SUCCESS);//manually set pass
     }
 }
