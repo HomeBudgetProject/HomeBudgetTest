@@ -27,6 +27,10 @@ import java.net.URL;
 public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
     String baseEmail = "qatestemail@testdomain.com";
     String basePass= "Qwerty123456";
+    //class name init
+    StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+    StackTraceElement e = stacktrace[2];//maybe this number needs to be corrected
+    //
 
     public WebDriver driver;
 
@@ -50,7 +54,7 @@ public class Helper implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
             desiredCapabilities.setVersion(System.getenv("SELENIUM_VERSION"));
 
 
-            desiredCapabilities.setCapability("name", "HomeBudget test"); //name job in saucelab
+            desiredCapabilities.setCapability("name", e.getClassName()); //name job in saucelab
             //create WebDriver
             RemoteWebDriver remoteDriver = new RemoteWebDriver(new URL("http://" + username + ":" + accesskey + "@ondemand.saucelabs.com:80/wd/hub"), desiredCapabilities);
             //print Job
