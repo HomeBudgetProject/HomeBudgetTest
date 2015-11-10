@@ -1,15 +1,16 @@
 package ua.com.ua.com.homebudget.steps;
 
 import com.jayway.restassured.RestAssured;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.net.URLEncoder;
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.restassured.RestAssured.expect;
 import static com.thoughtworks.selenium.SeleneseTestNgHelper.assertEquals;
@@ -23,7 +24,7 @@ public class RegistrationSteps {
     public RegistrationSteps(WebDriver driver) {
         this.driver = driver;
     }
-    private SoftAssert softAssert = new SoftAssert();
+    WebDriverWait wait = new WebDriverWait(driver, 2);
 
     By registrationForm = By.xpath("//*[@name='registerform']");
     By emailInput = By.xpath(".//*[@name='email']");
@@ -38,7 +39,7 @@ public class RegistrationSteps {
     @Step
     public void openRegistrationPage() {
         driver.get("https://homebudget-hb2.rhcloud.com/#/register");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        wait.until(ExpectedConditions.elementToBeClickable(registrationForm));
         driver.findElement(registrationForm).isDisplayed();
         driver.navigate().refresh();
     }
@@ -64,8 +65,8 @@ public class RegistrationSteps {
     public void sumbitData() {
         //assertFalse("Register button is disabled", driver.findElement(registerButton).isEnabled());
         //driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("someid")));
+
+       wait.until(ExpectedConditions.elementToBeClickable(registerButton));
 
         driver.findElement(registerButton).click();
     }

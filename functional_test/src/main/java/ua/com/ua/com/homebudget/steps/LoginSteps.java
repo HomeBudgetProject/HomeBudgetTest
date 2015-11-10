@@ -4,11 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.testng.asserts.SoftAssert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Step;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Anohin Artyom on 04.11.15.
@@ -19,7 +18,7 @@ public class LoginSteps {
     public LoginSteps(WebDriver driver) {
         this.driver = driver;
     }
-    private SoftAssert softAssert = new SoftAssert();
+    WebDriverWait wait = new WebDriverWait(driver, 2);
 
     By loginForm = By.xpath("//*[@name='loginform']");
     By emailInput = By.xpath(".//*[@name='email']");
@@ -30,7 +29,7 @@ public class LoginSteps {
     @Step
     public void openLoginPage() {
         driver.get("https://homebudget-hb2.rhcloud.com/#/login");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        wait.until(ExpectedConditions.elementToBeClickable(loginForm));
         driver.findElement(loginForm).isDisplayed();
         driver.navigate().refresh();
     }
@@ -46,7 +45,7 @@ public class LoginSteps {
     public void sumbitData() {
         //softAssert.assertFalse(driver.findElement(registerButton).isEnabled(), "Registration button is disabled");
         //assertTrue("Register button is disabled",!driver.findElement(registerButton).isEnabled());
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        wait.until(ExpectedConditions.elementToBeClickable(loginButton));
         driver.findElement(loginButton).click();
     }
 
