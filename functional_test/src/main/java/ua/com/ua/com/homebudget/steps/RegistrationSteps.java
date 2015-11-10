@@ -24,7 +24,7 @@ public class RegistrationSteps {
         this.driver = driver;
     }
     private SoftAssert softAssert = new SoftAssert();
-    WebDriverWait wait = new WebDriverWait(driver, 10);
+
     By registrationForm = By.xpath("//*[@name='registerform']");
     By emailInput = By.xpath(".//*[@name='email']");
     By passInput = By.xpath("//*[@name='password']");
@@ -64,7 +64,7 @@ public class RegistrationSteps {
     public void sumbitData() {
         //assertFalse("Register button is disabled", driver.findElement(registerButton).isEnabled());
         //driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-
+        WebDriverWait wait = new WebDriverWait(driver, 2);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("someid")));
 
         driver.findElement(registerButton).click();
