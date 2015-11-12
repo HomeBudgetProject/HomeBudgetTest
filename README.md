@@ -23,7 +23,7 @@ For local run execute:
 
 The default browser is Firefox. To change the browser, use the command:
 
-` -DinstanceBrowser=`
+` -Dinstance.browser=`
 
 Available browsers:
 
