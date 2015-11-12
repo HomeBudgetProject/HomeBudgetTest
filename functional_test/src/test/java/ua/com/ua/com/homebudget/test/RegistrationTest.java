@@ -26,7 +26,7 @@ public class RegistrationTest extends HelpClass {
         registrationSteps.submitData();
     }
 
-    @Features("Login")
+    @Features("Registration")
     @Stories("Negative Email Validation")
     @Test(dataProvider = "negativeEmailValidation")
     public void negativeEmailValidationTest(String testName, String email, String password, int statuscode, String errorMessage){

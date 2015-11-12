@@ -108,7 +108,7 @@ public class HelpClass  {
                 {"Two Space Email", "  ", generatePass(10), 400, "Введите Email"},
                 {"Five Letters Email", "m@e.u", generatePass(10), 400, "Введены некорректные данные"},
                 {"Five Letters + Space Email", "m@e.u ", generatePass(10), 400, "Введены некорректные данные"},
-                {"61 Letters Email", generateEmail(31, 30), generatePass(10), 400, "Введены некорректные данные"}
+                {"61 Letters Email", generateEmail(31, 30), generatePass(10), 400, "Email должен содержать от 6 до 60 символов"}
         };
     }
     @DataProvider(name = "negativePassVerification")
