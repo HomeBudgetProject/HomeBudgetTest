@@ -1,5 +1,6 @@
 package ua.com.ua.com.homebudget.test;
 
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,44 +16,29 @@ public class LoginTest extends HelpClass{
     LoginSteps loginSteps;
 
     @Features("Login")
-    @Stories("Negative Email Verification")
-    @Test(dataProvider = "negativeEmailVerification")
-    public void negativeEmailVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
+    @Stories("Negative Login")
+    @Test
+    public void negativeEmailVerificationTest(ITestContext context){
         loginSteps = new LoginSteps(driver);
         loginSteps.openLoginPage();
-        loginSteps.enterData(email, password);
-        loginSteps.verifyEmailNotification(errorMessage);
+        loginSteps.enterData("blablba@email.com", "123456");
         loginSteps.submitData();
+        context.setAttribute("wrongEmail", "aValue");
+        context.setAttribute("wrongPass", "bValue");
+        //loginSteps.verifyEmailNotification("Authentication Failed: Bad credentials");
     }
 
-    @Features("Login")
-    @Stories("Negative Email Validation")
-    @Test(dataProvider = "negativeEmailValidation")
-    public void negativeEmailValidationTest(String testName, String email, String password, int statuscode, String errorMessage){
-        loginSteps = new LoginSteps(driver);
-        loginSteps.openLoginPage();
-        loginSteps.enterData(email, password);
-        loginSteps.verifyEmailNotification(errorMessage);
-        loginSteps.submitData();
-    }
 
-    @Features("Login")
-    @Stories("Negative Password Verification")
-    @Test(dataProvider = "negativePassVerification")
-    public void negativePassVerificationTest(String testName, String email, String password, int statuscode, String errorMessage){
-        loginSteps = new LoginSteps(driver);
-        loginSteps.openLoginPage();
-        loginSteps.enterData(email, password);
-        loginSteps.verifyPassNotification(errorMessage);
-        loginSteps.submitData();
-    }
 
     @AfterMethod
-    public void takeScreenShotOnFailure(ITestResult testResult)
+    public void actionIfTestFailed(ITestResult testResult, ITestContext context)
     {
         if ((testResult.getStatus() == ITestResult.FAILURE)|(testResult.getStatus() == ITestResult.SUCCESS_PERCENTAGE_FAILURE))
         {
-            loginSteps.makeScreenshot();
+            loginSteps.makeScreenshot();//take screenshot
+            //delete the data if they have been created if the test failed
+            //delete this account
+            //"wrongEmail" "wrongPass"
         }
     }
 

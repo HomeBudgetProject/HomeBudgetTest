@@ -52,7 +52,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.2.10.v20150310</version>
                 <configuration>
-                    <webAppSourceDirectory>${project.basedir}/target/site/function-allure/</webAppSourceDirectory>
+                    <webAppSourceDirectory>${project.parent.basedir}/target/site/function-allure/</webAppSourceDirectory>
                     <stopKey>stop</stopKey>
                     <stopPort>1234</stopPort>
                 </configuration>
@@ -82,7 +82,7 @@
                 <artifactId>allure-maven-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <reportDirectory>${project.basedir}/target/site/function-allure/</reportDirectory>
+                    <reportDirectory>${project.parent.basedir}/target/site/function-allure/</reportDirectory>
                 </configuration>
             </plugin>
         </plugins>
