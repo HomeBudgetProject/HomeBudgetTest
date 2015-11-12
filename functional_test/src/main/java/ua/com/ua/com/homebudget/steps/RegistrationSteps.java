@@ -14,7 +14,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 import static com.thoughtworks.selenium.SeleneseTestNgHelper.assertEquals;
 
 /**
- * Created by artyom on 10.11.15.
+ * Created by Anohin Artyom on 10.11.15.
  */
 public class RegistrationSteps {
     WebDriver driver;

@@ -17,7 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by artyom on 10.11.15.
+ * Created by Anohin Artyom on 10.11.15.
  */
 
 public class HelpClass  {

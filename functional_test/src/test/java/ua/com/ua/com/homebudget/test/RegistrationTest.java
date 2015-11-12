@@ -10,7 +10,7 @@ import ua.com.ua.com.homebudget.steps.LoginSteps;
 import ua.com.ua.com.homebudget.steps.RegistrationSteps;
 
 /**
- * Created by artyom on 10.11.15.
+ * Created by Anohin Artyom on 10.11.15.
  */
 public class RegistrationTest extends HelpClass {
     RegistrationSteps registrationSteps;
