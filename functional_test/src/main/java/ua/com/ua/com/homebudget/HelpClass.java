@@ -24,19 +24,16 @@ import static org.hamcrest.Matchers.equalTo;
  */
 
 public class HelpClass  {
-    public WebDriver driver;
-    public String baseEmail = "qatestemail@testdomain.com";
-    public String basePass= "Qwerty123456";
-    public String username = System.getenv("SAUCE_USERNAME");
-    public String accesskey = System.getenv("SAUCE_ACCESS_KEY");
+    protected WebDriver driver;
+    protected String baseEmail = "qatestemail@testdomain.com";
+    protected String basePass= "Qwerty123456";
+    private String username = System.getenv("SAUCE_USERNAME");
+    private String accesskey = System.getenv("SAUCE_ACCESS_KEY");
 
     private String sessionId;
 
     @BeforeClass
     public void setup() throws MalformedURLException {
-//        ONLY FOR DEBUG
-//        driver = new FirefoxDriver();
-
         if (System.getProperty("instance").equals("saucelabs")) {
             //setup capabilities
             if (System.getProperty("instance.device").equals("desktop")) {
@@ -76,35 +73,29 @@ public class HelpClass  {
                 driver = new InternetExplorerDriver();
             }
             else System.out.println("Bad instance");
-            System.out.println("Instance - local. Browser - " + System.getProperty("instanceBrowser"));
+            System.out.println("Instance - local. Browser - " + System.getProperty("instance.browser"));
         }
-
     }
-
 
     @AfterClass
     public void down(){
         driver.quit();
     }
 
+    //------------
+    //TEST DATA SECTION
+    //------------
 
-    public String generateEmail(int local_part, int domain_part, int subdomain){
-        String email = "qa" + RandomStringUtils.randomAlphanumeric(local_part - 3) + "@" + RandomStringUtils.randomAlphanumeric(domain_part) + "." + RandomStringUtils.randomAlphanumeric(subdomain) + ".com";
-        return email;
-
+    private String generateEmail(int local_part, int domain_part, int subdomain){
+        return "qa" + RandomStringUtils.randomAlphanumeric(local_part - 3) + "@" + RandomStringUtils.randomAlphanumeric(domain_part) + "." + RandomStringUtils.randomAlphanumeric(subdomain) + ".com";
     }
-
-    public String generateEmail(int local_part, int domain_part){
-        String email = "qa"+ RandomStringUtils.randomAlphanumeric(local_part - 3) + "@"+RandomStringUtils.randomAlphanumeric(domain_part-4)+".com";
-        return email;
+    private String generateEmail(int local_part, int domain_part){
+        return "qa"+ RandomStringUtils.randomAlphanumeric(local_part - 3) + "@"+RandomStringUtils.randomAlphanumeric(domain_part-4)+".com";
     }
-
-    public String generatePass(int length){
-        String pass =  RandomStringUtils.randomAlphanumeric(length);
+    private String generatePass(int length){
         //String pass =  RandomStringUtils.randomAscii(length);
-        return pass;
+        return RandomStringUtils.randomAlphanumeric(length);
     }
-
     @DataProvider(name = "negativeEmailVerification")
     public Object[][] negativeEmailVerification() {
         return new Object[][]{
