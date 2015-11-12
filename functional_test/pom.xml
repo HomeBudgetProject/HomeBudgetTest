@@ -32,7 +32,8 @@
                     <systemPropertyVariables>
                         <instance>local</instance>
                         <instance.device>desktop</instance.device>
-                        <instance.browser>firefox</instance.browser>
+                        <instance.browser>chrome</instance.browser>
+                        <webdriver.chrome.driver>C:\chromedriver.exe</webdriver.chrome.driver>
                     </systemPropertyVariables>
 
                 </configuration>

@@ -26,8 +26,8 @@ public class LoginSteps {
     @FindBy(xpath = "//input[@name='email']")
     WebElement emailInput;
 
-   @FindBy(xpath = "//input[@name='password']")
-   WebElement passInput;
+    @FindBy(xpath = "//input[@name='password']")
+    WebElement passInput;
 
     @FindBy(xpath = "//input[@value='Log In']")
     WebElement loginButton;
@@ -37,6 +37,9 @@ public class LoginSteps {
 
     @FindBy(xpath = "//ng-messages[2]/div")
     WebElement passNotification;
+
+    @FindBy(xpath = "//*[@name='loginform']/div[1]/div/div[3]")
+    WebElement generalNotification;
 
     @Attachment
     public byte[] makeScreenshot() {
@@ -65,11 +68,23 @@ public class LoginSteps {
         loginButton.click();
     }
 
-    public void verifyEmailNotification(String errorMessage) {
-        assertEquals(emailNotification.getText(), errorMessage);
+    public void verifyNegativeEmailNotification(String notificationMessage) {
+        wait.until(ExpectedConditions.visibilityOf(emailNotification));
+        assertEquals(emailNotification.getText(), notificationMessage);
     }
 
-    public void verifyPassNotification(String errorMessage) {
-        assertEquals(passNotification.getText(), errorMessage);
+    public void verifyPassNotification(String notificationMessage) {
+        wait.until(ExpectedConditions.visibilityOf(passNotification));
+        assertEquals(passNotification.getText(), notificationMessage);
+    }
+
+    public void verifyGeneralEmailNotification(String notificationMessage) {
+        wait.until(ExpectedConditions.visibilityOf(generalNotification));
+        assertEquals(generalNotification.getText(), notificationMessage);
+    }
+
+    public void verifyRedirectTransactionPage() {
+        wait.until(ExpectedConditions.titleContains("Transaction"));
+        assertEquals(driver.getTitle(),"Transaction");
     }
 }

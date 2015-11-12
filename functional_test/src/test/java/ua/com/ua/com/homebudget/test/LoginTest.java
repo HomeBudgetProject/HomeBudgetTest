@@ -18,27 +18,31 @@ public class LoginTest extends HelpClass{
     @Features("Login")
     @Stories("Negative Login")
     @Test
-    public void negativeEmailVerificationTest(ITestContext context){
+    public void negativeEmailVerificationTest(){
         loginSteps = new LoginSteps(driver);
         loginSteps.openLoginPage();
         loginSteps.enterData("blablba@email.com", "123456");
         loginSteps.submitData();
-        context.setAttribute("wrongEmail", "aValue");
-        context.setAttribute("wrongPass", "bValue");
-        //loginSteps.verifyEmailNotification("Authentication Failed: Bad credentials");
+        loginSteps.verifyGeneralEmailNotification("Authentication Failed: Bad credentials");
     }
 
-
+    @Features("Login")
+    @Stories("Exist Login")
+    @Test
+    public void loginExistEmailTest(){
+        loginSteps = new LoginSteps(driver);
+        loginSteps.openLoginPage();
+        loginSteps.enterData(baseEmail, basePass);
+        loginSteps.submitData();
+        loginSteps.verifyRedirectTransactionPage();
+    }
 
     @AfterMethod
-    public void actionIfTestFailed(ITestResult testResult, ITestContext context)
+    public void actionIfTestFailed(ITestResult testResult)
     {
         if ((testResult.getStatus() == ITestResult.FAILURE)|(testResult.getStatus() == ITestResult.SUCCESS_PERCENTAGE_FAILURE))
         {
             loginSteps.makeScreenshot();//take screenshot
-            //delete the data if they have been created if the test failed
-            //delete this account
-            //"wrongEmail" "wrongPass"
         }
     }
 
