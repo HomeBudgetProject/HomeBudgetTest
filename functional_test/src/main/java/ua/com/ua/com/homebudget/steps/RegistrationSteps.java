@@ -1,136 +1,77 @@
 package ua.com.ua.com.homebudget.steps;
 
-import com.jayway.restassured.RestAssured;
-import org.openqa.selenium.*;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.net.URLEncoder;
-import java.util.concurrent.TimeUnit;
-
-import static com.jayway.restassured.RestAssured.expect;
 import static com.thoughtworks.selenium.SeleneseTestNgHelper.assertEquals;
-import static org.hamcrest.Matchers.equalTo;
+
 /**
- * Created by Anohin Artyom on 02.11.15.
+ * Created by artyom on 10.11.15.
  */
 public class RegistrationSteps {
-    public WebDriver driver;
+    WebDriver driver;
+    WebDriverWait wait = null;
 
-    public RegistrationSteps(WebDriver driver) {
-        this.driver = driver;
-    }
-    private SoftAssert softAssert = new SoftAssert();
+    @FindBy(xpath = "//*[@name='registerform']")
+    WebElement registrationForm;
 
-    By registrationForm = By.xpath("//*[@name='registerform']");
-    By emailInput = By.xpath(".//*[@name='email']");
-    By passInput = By.xpath("//*[@name='password']");
-    By registerButton = By.xpath("//input[@value='Register']");
-    By generalWarning = By.xpath("/html/body/div/div/form/div[1]/div/div[3]");
-    By passWarning = By.xpath("/html/body/div/div/form/div[1]/div/ng-messages[2]/div");
-    By emailWarning =By.xpath("/html/body/div/div/form/div[1]/div/ng-messages[1]/div");
+    @FindBy(xpath = "//input[@name='email']")
+    WebElement emailInput;
 
+    @FindBy(xpath = "//input[@name='password']")
+    WebElement passInput;
 
+    @FindBy(xpath = "//input[@value='Register']")
+    WebElement registerButton;
 
-    @Step
-    public void openRegistrationPage() {
-        driver.get("https://homebudget-hb2.rhcloud.com/#/register");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.findElement(registrationForm).isDisplayed();
-        driver.navigate().refresh();
-    }
+    @FindBy(xpath = "//ng-messages[2]/div")
+    WebElement passNotification;
 
-    @Step("Enter data \"{0}\" - \"{1}\"")
-    public void enterData(String email, String pass) {
-        driver.findElement(emailInput).clear();
-        driver.findElement(passInput).clear();
-        driver.findElement(emailInput).sendKeys(email);
-        driver.findElement(passInput).sendKeys(pass);
-    }
+    @FindBy(xpath = "//ng-messages[1]/div")
+    WebElement emailNotification;
 
     @Attachment
     public byte[] makeScreenshot() {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
-    public void quit() {
-        driver.quit();
-    }
-
-    @Step
-    public void sumbitData() {
-        //assertFalse("Register button is disabled", driver.findElement(registerButton).isEnabled());
-        //driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 2);
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("someid")));
-
-        driver.findElement(registerButton).click();
+    public RegistrationSteps(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
     @Step
-    public void verifyEmailWarningMessage(String message) {
-        assertEquals(driver.findElement(emailWarning).getText(), message);
+    public void openRegistrationPage() {
+        driver.get("https://homebudget-hb2.rhcloud.com/#/register");
+        driver.navigate().refresh();
+        wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.visibilityOf(registrationForm));
     }
     @Step
-    public void verifyPassWarningMessage(String message) {
-        assertEquals(driver.findElement(passWarning).getText(), message);
+    public void enterData(String email, String pass) {
+    //    emailInput.clear();
+        emailInput.sendKeys(email);
+    //    passInput.clear();
+        passInput.sendKeys(pass);
+
     }
-    @Step
-    public void verifyGeneralWarningMessage(String message) {
-        assertEquals(driver.findElement(generalWarning).getText(), message);
+
+    public void verifyEmailNotification(String errorMessage) {
+        assertEquals(emailNotification.getText(), errorMessage);
     }
-    @Step
-    public void cleanAfterTest(String email, String password) {
-        String auth_key=null;
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.baseURI = "http://homebudget-hb2.rhcloud.com/api";
-        //RestAssured.port=8080;
-        RestAssured.urlEncodingEnabled = false;
-        int scode = expect() //try login and get statuscode
-                .when()
-                .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
-                .then()
-                .log().ifValidationFails()
-                .extract().statusCode();
-        if (scode==200) {
-            //Delete Section
-            auth_key = expect() //login process and get auth_key
-                    .statusCode(200)
-                    .when()
-                    .post("/login?username=" + URLEncoder.encode(email.trim()) + "&password=" + password.trim())
-                    .then()
-                    .log().ifValidationFails()
-                    .extract().cookie("auth_key");
 
-            int userId = expect(). //get user info
-                    statusCode(200)
-                    .when()
-                    .given()
-                    .cookie("auth_key", auth_key)
-                    .get("/users/userInfo")
-                    .then()
-                    .extract().body().path("userId");
+    public void submitData() {
+        registerButton.click();
+    }
 
-            expect(). //delete account
-                    statusCode(200)
-                    .when()
-                    .given()
-                    .cookie("auth_key", auth_key)
-                    .delete("/users/" + userId)
-                    .then()
-                    .log().ifValidationFails();
-
-            expect(). //verify that session is destroyed
-                    statusCode(200)
-                    .when()
-                    .given()
-                    .cookie("auth_key", auth_key)
-                    .get("/users/whoami")
-                    .then().assertThat().body(equalTo("anonymousUser"))
-                    .log().ifValidationFails();
-        }
-        //Reporter.getCurrentTestResult().setStatus(ITestResult.SUCCESS);//manually set pass
+    public void verifyPassNotification(String errorMessage) {
+        assertEquals(passNotification.getText(), errorMessage);
     }
 }

@@ -3,17 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-
     <parent>
         <artifactId>homebudget-tests</artifactId>
         <groupId>ua.com.ua.com.homebudget-tests</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>homebudget-tests-functional</artifactId>
-
     <name>homebudget-tests-functional</name>
-
     <properties>
         <allure.version>1.4.16</allure.version>
         <aspectj.version>1.8.5</aspectj.version>
@@ -33,18 +29,12 @@
                         <suiteXmlFile>TestSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <forkCount>1</forkCount>
-                    <systemProperties>
-                        <property>
-                            <name>instance</name>
-                            <value>local</value>
-                            <value>${instance}</value>
-                        </property>
-                        <property>
-                            <name>instanceBrowser</name>
-                            <value>firefox</value>
-                            <value>${instanceBrowser}</value>
-                        </property>
-                    </systemProperties>
+                    <systemPropertyVariables>
+                        <instance>local</instance>
+                        <instance.device>desktop</instance.device>
+                        <instance.browser>firefox</instance.browser>
+                    </systemPropertyVariables>
+
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -62,7 +52,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.2.10.v20150310</version>
                 <configuration>
-                    <webAppSourceDirectory>${project.parent.basedir}/target/site/function-allure/</webAppSourceDirectory>
+                    <webAppSourceDirectory>${project.basedir}/target/site/function-allure/</webAppSourceDirectory>
                     <stopKey>stop</stopKey>
                     <stopPort>1234</stopPort>
                 </configuration>
@@ -92,19 +82,13 @@
                 <artifactId>allure-maven-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <reportDirectory>${project.parent.basedir}/target/site/function-allure/</reportDirectory>
+                    <reportDirectory>${project.basedir}/target/site/function-allure/</reportDirectory>
                 </configuration>
             </plugin>
         </plugins>
     </reporting>
 
     <dependencies>
-        <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>sauce_testng</artifactId>
-            <version>2.1.18</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>com.jayway.restassured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -115,7 +99,6 @@
             <artifactId>selenium-java</artifactId>
             <version>2.48.2</version>
         </dependency>
-
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
@@ -127,28 +110,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.9.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.uncommons</groupId>
-            <artifactId>reportng</artifactId>
-            <version>1.1.4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-        <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>sauce_testng</artifactId>
-            <version>2.1.18</version>
         </dependency>
     </dependencies>
 </project>

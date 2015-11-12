@@ -1,61 +1,75 @@
 package ua.com.ua.com.homebudget.steps;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.testng.asserts.SoftAssert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.util.concurrent.TimeUnit;
+import static com.thoughtworks.selenium.SeleneseTestNgHelper.assertEquals;
 
 /**
- * Created by Anohin Artyom on 04.11.15.
+ * Created by artyom on 10.11.15.
  */
 public class LoginSteps {
-    public WebDriver driver;
+    WebDriver driver;
+    WebDriverWait wait = null;
 
-    public LoginSteps(WebDriver driver) {
-        this.driver = driver;
-    }
-    private SoftAssert softAssert = new SoftAssert();
+    @FindBy(xpath = "//*[@name='loginform']")
+    WebElement loginForm;
 
-    By loginForm = By.xpath("//*[@name='loginform']");
-    By emailInput = By.xpath(".//*[@name='email']");
-    By passInput = By.xpath("//*[@name='password']");
-    By loginButton = By.xpath("//input[@value='Log In']");
+    @FindBy(xpath = "//input[@name='email']")
+    WebElement emailInput;
 
+   @FindBy(xpath = "//input[@name='password']")
+   WebElement passInput;
 
-    @Step
-    public void openLoginPage() {
-        driver.get("https://homebudget-hb2.rhcloud.com/#/login");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.findElement(loginForm).isDisplayed();
-        driver.navigate().refresh();
-    }
+    @FindBy(xpath = "//input[@value='Log In']")
+    WebElement loginButton;
 
-    @Step("Enter data \"{0}\" - \"{1}\"")
-    public void enterData(String email, String pass) {
-        driver.findElement(emailInput).clear();
-        driver.findElement(passInput).clear();
-        driver.findElement(emailInput).sendKeys(email);
-        driver.findElement(passInput).sendKeys(pass);
-    }
-    @Step
-    public void sumbitData() {
-        //softAssert.assertFalse(driver.findElement(registerButton).isEnabled(), "Registration button is disabled");
-        //assertTrue("Register button is disabled",!driver.findElement(registerButton).isEnabled());
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.findElement(loginButton).click();
-    }
+    @FindBy(xpath = "//ng-messages[1]/div")
+    WebElement emailNotification;
+
+    @FindBy(xpath = "//ng-messages[2]/div")
+    WebElement passNotification;
 
     @Attachment
     public byte[] makeScreenshot() {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
-    public void quit() {
-        driver.quit();
+    public LoginSteps(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+    @Step
+    public void openLoginPage() {
+        driver.get("https://homebudget-hb2.rhcloud.com/#/login");
+        driver.navigate().refresh();
+        wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.visibilityOf(loginForm));
+    }
+    @Step
+    public void enterData(String email,String pass) {
+
+        emailInput.sendKeys(email);
+        passInput.sendKeys(pass);
+    }
+
+    public void submitData() {
+        loginButton.click();
+    }
+
+    public void verifyEmailNotification(String errorMessage) {
+        assertEquals(emailNotification.getText(), errorMessage);
+    }
+
+    public void verifyPassNotification(String errorMessage) {
+        assertEquals(passNotification.getText(), errorMessage);
     }
 }

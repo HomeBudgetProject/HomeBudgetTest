@@ -3,17 +3,17 @@
     <listeners>
         <listener class-name="org.testng.reporters.XMLReporter" />
     </listeners>
-        <tests>
-            <test name="Login tests">
-                <classes>
-                    <class name="ua.com.ua.com.homebudget.tests.LoginTest" />
-                </classes>
-            </test>
-            <test name="Registration tests">
-                <classes>
-                    <class name="ua.com.ua.com.homebudget.tests.RegistrationTest" />
-                </classes>
-            </test>
+    <tests>
+        <test name="Registration Test">
+            <classes>
+                <class name="ua.com.ua.com.homebudget.test.RegistrationTest" />
+            </classes>
+        </test>
+        <test name="Login Test">
+            <classes>
+                <class name="ua.com.ua.com.homebudget.test.LoginTest" />
+            </classes>
+        </test>
 
     </tests>
 </suite>
